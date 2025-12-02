@@ -62,6 +62,8 @@ export const RFQDrawer = () => {
                           size="icon"
                           className="h-7 w-7"
                           onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                          aria-label={language === 'fa' ? 'کاهش تعداد' : 'Decrease quantity'}
+                          title={language === 'fa' ? 'کاهش تعداد' : 'Decrease quantity'}
                         >
                           <Minus className="w-3 h-3" />
                         </Button>
@@ -71,12 +73,15 @@ export const RFQDrawer = () => {
                           onChange={(e) => updateQuantity(item.id, parseInt(e.target.value) || 1)}
                           className="h-7 w-14 text-center"
                           min="1"
+                          aria-label={language === 'fa' ? 'تعداد' : 'Quantity'}
                         />
                         <Button
                           variant="outline"
                           size="icon"
                           className="h-7 w-7"
                           onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                          aria-label={language === 'fa' ? 'افزایش تعداد' : 'Increase quantity'}
+                          title={language === 'fa' ? 'افزایش تعداد' : 'Increase quantity'}
                         >
                           <Plus className="w-3 h-3" />
                         </Button>
@@ -85,6 +90,8 @@ export const RFQDrawer = () => {
                           size="icon"
                           className="h-7 w-7 text-destructive"
                           onClick={() => removeItem(item.id)}
+                          aria-label={language === 'fa' ? 'حذف از لیست' : 'Remove from list'}
+                          title={language === 'fa' ? 'حذف از لیست' : 'Remove from list'}
                         >
                           <X className="w-4 h-4" />
                         </Button>

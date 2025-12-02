@@ -5,6 +5,7 @@ import { Search, ArrowRight, ArrowLeft, Package, Award, TrendingUp } from 'lucid
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { ProductCard } from '@/components/ProductCard';
+import { ProductGridSkeleton } from '@/components/ProductSkeleton';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator, BreadcrumbPage } from '@/components/ui/breadcrumb';
@@ -12,6 +13,7 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { categories } from '@/data/products';
 import { cn } from '@/lib/utils';
 import { useProducts } from '@/hooks/useProducts';
+import { SITE_URL } from '@/config';
 
 export default function Products() {
   const { language } = useLanguage();
@@ -42,9 +44,9 @@ export default function Products() {
         <meta name="description" content={language === 'fa' 
           ? 'تجهیزات آزمایشگاهی تخصصی برای صنایع نفت، گاز و پتروشیمی. FTIR، کروماتوگرافی، فلومتر و ابزار دقیق با استانداردهای بین‌المللی'
           : 'Specialized laboratory equipment for oil, gas and petrochemical industries. FTIR, chromatography, flow meters and precision instruments with international standards'} />
-        <link rel="canonical" href="https://petropalayeshco.ir/products" />
+        <link rel="canonical" href={`${SITE_URL}/products`} />
         <meta property="og:title" content={language === 'fa' ? 'محصولات آزمایشگاهی | پتروپالایش کو' : 'Laboratory Products | PetroPalayesh Co.'} />
-        <meta property="og:url" content="https://petropalayeshco.ir/products" />
+        <meta property="og:url" content={`${SITE_URL}/products`} />
       </Helmet>
       <Header />
       
@@ -111,7 +113,15 @@ export default function Products() {
         {/* Search Results or Category Cards */}
         <section className="section-padding">
           <div className="container-wide">
-            {searchQuery && filteredProducts.length > 0 ? (
+            {searchQuery && isLoading ? (
+              // Loading state
+              <>
+                <h2 className="text-2xl font-bold mb-8">
+                  {language === 'fa' ? 'در حال جستجو...' : 'Searching...'}
+                </h2>
+                <ProductGridSkeleton count={8} />
+              </>
+            ) : searchQuery && filteredProducts.length > 0 ? (
               // Search Results
               <>
                 <h2 className="text-2xl font-bold mb-8">
