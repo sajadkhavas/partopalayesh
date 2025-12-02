@@ -13,4 +13,4 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://YOURDOMAIN.com/sitemap.xml
+Sitemap: https://petropalayeshco.ir/sitemap.xml
