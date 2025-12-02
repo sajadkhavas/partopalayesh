@@ -16,7 +16,8 @@ import {
   Sparkles,
   Star,
   Globe,
-  Users
+  Users,
+  Package
 } from 'lucide-react';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
@@ -29,7 +30,7 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { products } from '@/data/products';
 import { industries } from '@/data/industries';
 import { productCategories } from '@/data/industries';
-import heroImage from '@/assets/hero-lab-modern.jpg';
+import heroImage from '@/assets/hero-lab-equipment-new.jpg';
 import categoryAnalytical from '@/assets/category-analytical.jpg';
 import categoryProcess from '@/assets/category-process.jpg';
 import categoryCalibration from '@/assets/category-calibration.jpg';
@@ -142,7 +143,7 @@ const Index = () => {
 
       <main className="min-h-screen">
         {/* Hero Section */}
-        <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <section className="relative min-h-[85vh] flex items-center justify-center overflow-hidden pt-24">
           <div className="absolute inset-0">
             <img 
               src={heroImage}
@@ -150,99 +151,80 @@ const Index = () => {
               className="w-full h-full object-cover"
               loading="eager"
             />
-            <div className="absolute inset-0 gradient-hero-overlay" />
+            <div className="absolute inset-0 bg-gradient-to-b from-[hsl(210,100%,10%)]/90 via-[hsl(210,100%,12%)]/85 to-[hsl(210,100%,15%)]/90" />
           </div>
 
-          <div className="relative z-10 container-wide text-center text-white pt-32 pb-20 px-4">
-          {/* Top Badge */}
-          <div className="mb-6">
-            <Badge 
-              variant="secondary"
-              className="bg-white/10 text-white border-white/20 backdrop-blur-sm px-4 py-2 text-sm font-semibold"
-            >
-              {language === 'fa' ? 'تهران، ایران' : 'Tehran, Iran'}
-            </Badge>
-          </div>
+          <div className="relative z-10 container-wide text-white pt-20 pb-16 px-4">
+            {/* Top Badge */}
+            <div className="mb-8 animate-fade-in">
+              <Badge 
+                variant="secondary"
+                className="bg-white/10 text-white border-white/20 backdrop-blur-sm px-5 py-2 text-sm font-semibold rounded-full"
+              >
+                {language === 'fa' ? 'تهران به سراسر جهان' : 'Tehran to the World'}
+              </Badge>
+            </div>
 
             {/* Main Headline */}
-            <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-6 leading-tight animate-fade-in">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 leading-[1.1] animate-fade-in max-w-5xl">
               {language === 'fa' 
-                ? 'تجهیزات آزمایشگاهی و ابزار دقیق برای صنایع نفت، گاز و پتروشیمی'
-                : 'Laboratory Equipment & Process Instrumentation for Oil, Gas & Petrochemical Industries'}
+                ? 'تأمین تجهیزات آزمایشگاهی و ابزار دقیق با استانداردهای جهانی'
+                : 'Global Laboratory Equipment & Precision Instrumentation Supply'}
             </h1>
 
-            {/* Subtitle */}
-            <p className="text-lg md:text-xl lg:text-2xl mb-4 text-white/90 font-medium animate-fade-in">
-              {language === 'fa' 
-                ? 'اندازه‌گیری دقیق، برندهای معتبر، پشتیبانی مهندسی'
-                : 'Precision Measurement, Trusted Brands, Engineering Support'}
-            </p>
-
             {/* Description */}
-            <p className="text-base md:text-lg max-w-3xl mx-auto mb-12 text-white/80 leading-relaxed animate-fade-in">
+            <p className="text-base md:text-lg lg:text-xl max-w-3xl mb-10 text-white/90 leading-relaxed animate-fade-in">
               {language === 'fa'
-                ? 'از آزمایشگاه تا خط فرآیند - یک تأمین‌کننده برای تمام نیازهای اندازه‌گیری و آنالیز صنعتی شما با استانداردهای بین‌المللی ASTM، ISO و API'
-                : 'From lab bench to process line - one supplier for all your industrial measurement and analysis needs with international ASTM, ISO & API standards'}
+                ? 'تأمین تجهیزات آزمایشگاهی و ابزار دقیق با کیفیت بالا برای صنایع نفت، گاز، پتروشیمی و آزمایشگاه‌های تحقیقاتی. استانداردهای بین‌المللی ASTM، ISO و API با ضمانت کیفیت قابل ردیابی.'
+                : 'Global sourcing of high-quality laboratory equipment and precision instruments for oil & gas, petrochemical industries and research laboratories. International standards ASTM, ISO & API with traceable quality assurance.'}
             </p>
 
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-in">
-              <Link to="/products">
-                <Button 
-                  size="lg" 
-                  className="gradient-accent text-white shadow-glow-accent hover:shadow-elegant-xl hover:scale-105 transition-smooth text-lg px-8 py-6 min-w-[200px]"
-                >
-                  {language === 'fa' ? 'مشاهده محصولات' : 'View Products'}
-                  <ArrowIcon className="w-5 h-5" />
-                </Button>
-              </Link>
-              
+            <div className="flex flex-wrap gap-4 mb-12 animate-fade-in">
               <Link to="/contact">
                 <Button 
                   size="lg" 
-                  variant="outline"
-                  className="bg-white/10 text-white border-white/30 backdrop-blur-sm hover:bg-white/20 hover:border-white/50 transition-smooth text-lg px-8 py-6 min-w-[200px]"
+                  className="bg-success hover:bg-success/90 text-white shadow-lg hover:shadow-xl hover:scale-105 transition-smooth text-base px-8 py-6"
                 >
                   {language === 'fa' ? 'درخواست استعلام قیمت' : 'Request Quote'}
                 </Button>
               </Link>
+              
+              <Link to="/products">
+                <Button 
+                  size="lg" 
+                  variant="outline"
+                  className="bg-white/10 text-white border-white/30 backdrop-blur-sm hover:bg-white/20 hover:border-white/50 transition-smooth text-base px-8 py-6"
+                >
+                  {language === 'fa' ? 'مشاهده محصولات' : 'View Materials'}
+                </Button>
+              </Link>
             </div>
 
-            {/* Trust Indicators at bottom */}
-            <div className="flex flex-wrap justify-center items-center gap-6 md:gap-10 text-white/90 text-sm animate-fade-in">
-              <div className="flex items-center gap-2">
-                <div className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center">
-                  <Globe className="w-5 h-5" />
-                </div>
+            {/* Trust Stats - Horizontal Layout */}
+            <div className="flex flex-wrap items-center gap-8 text-white animate-fade-in">
+              <div className="flex items-center gap-3">
+                <Globe className="w-5 h-5 text-white/70" />
                 <div>
-                  <div className="font-bold text-white text-base">+20</div>
-                  <div className="text-xs text-white/70">{language === 'fa' ? 'سال تجربه' : 'Years'}</div>
+                  <div className="text-xl font-bold">+20</div>
+                  <div className="text-xs text-white/70">{language === 'fa' ? 'کشور' : 'Countries'}</div>
                 </div>
               </div>
-              <div className="flex items-center gap-2">
-                <div className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center">
-                  <Users className="w-5 h-5" />
-                </div>
+              
+              <div className="flex items-center gap-3">
+                <Package className="w-5 h-5 text-white/70" />
                 <div>
-                  <div className="font-bold text-white text-base">+500</div>
-                  <div className="text-xs text-white/70">{language === 'fa' ? 'مشتری' : 'Clients'}</div>
+                  <div className="text-xl font-bold">+500</div>
+                  <div className="text-xs text-white/70">{language === 'fa' ? 'تن در ماه' : 'Tons/month'}</div>
                 </div>
               </div>
-              <div className="flex items-center gap-2">
-                <div className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center">
-                  <CheckCircle className="w-5 h-5" />
-                </div>
+              
+              <div className="flex items-center gap-3">
+                <CheckCircle className="w-5 h-5 text-white/70" />
                 <div>
-                  <div className="font-bold text-white text-base">ISO 9001</div>
-                  <div className="text-xs text-white/70">{language === 'fa' ? 'تضمین کیفیت' : 'Certified'}</div>
+                  <div className="text-xl font-bold">{language === 'fa' ? 'تأیید شده' : 'Certified'}</div>
+                  <div className="text-xs text-white/70">{language === 'fa' ? 'استانداردهای بین‌المللی' : 'International Standards'}</div>
                 </div>
-              </div>
-            </div>
-
-            {/* Scroll Indicator */}
-            <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
-              <div className="w-6 h-10 border-2 border-white/50 rounded-full flex items-start justify-center p-2">
-                <div className="w-1.5 h-3 bg-white/70 rounded-full" />
               </div>
             </div>
           </div>
