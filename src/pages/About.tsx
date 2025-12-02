@@ -1,10 +1,12 @@
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { Award, Users, Globe, TrendingUp } from 'lucide-react';
 import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator, BreadcrumbPage } from '@/components/ui/breadcrumb';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { cn } from '@/lib/utils';
+import { SITE_URL } from '@/config';
 
 export default function About() {
   const { language } = useLanguage();
@@ -34,6 +36,29 @@ export default function About() {
 
   return (
     <div className="min-h-screen bg-background" dir={language === 'fa' ? 'rtl' : 'ltr'}>
+      <Helmet>
+        <title>{language === 'fa' ? 'درباره پتروپالایش کو | تجهیزات آزمایشگاهی' : 'About PetroPalayeshco | Lab Equipment Partner'}</title>
+        <meta
+          name="description"
+          content={language === 'fa'
+            ? 'معرفی پتروپالایش کو به عنوان تأمین‌کننده تجهیزات آزمایشگاهی و ابزار دقیق با تیم متخصص و شبکه برندهای معتبر.'
+            : 'Learn about PetroPalayeshco as a trusted supplier of laboratory equipment and instrumentation with expert teams and global brand network.'}
+        />
+        <link rel="canonical" href={`${SITE_URL}/about`} />
+        <meta property="og:title" content={language === 'fa' ? 'درباره پتروپالایش کو' : 'About PetroPalayeshco'} />
+        <meta property="og:description" content={language === 'fa'
+          ? 'تجربه، ارزش‌ها و چشم‌انداز پتروپالایش کو در حوزه تجهیزات آزمایشگاهی و ابزار دقیق.'
+          : 'Experience, values, and vision of PetroPalayeshco in laboratory equipment and instrumentation.'} />
+        <meta property="og:url" content={`${SITE_URL}/about`} />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content={`${SITE_URL}/analytical-equipment.jpg`} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={language === 'fa' ? 'درباره پتروپالایش کو' : 'About PetroPalayeshco'} />
+        <meta name="twitter:description" content={language === 'fa'
+          ? 'تجربه، ارزش‌ها و چشم‌انداز پتروپالایش کو در حوزه تجهیزات آزمایشگاهی و ابزار دقیق.'
+          : 'Experience, values, and vision of PetroPalayeshco in laboratory equipment and instrumentation.'} />
+        <meta name="twitter:image" content={`${SITE_URL}/analytical-equipment.jpg`} />
+      </Helmet>
       <Header />
       
       <main className="pt-20 lg:pt-24">

@@ -1,15 +1,40 @@
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { CheckCircle } from 'lucide-react';
+import { SITE_URL } from '@/config';
 
 const ThankYou = () => {
   const { language } = useLanguage();
 
   return (
     <div className="min-h-screen bg-background" dir={language === 'fa' ? 'rtl' : 'ltr'}>
+      <Helmet>
+        <title>{language === 'fa' ? 'درخواست شما ثبت شد | پتروپالایش' : 'Request Received | PetroPalayeshco'}</title>
+        <meta
+          name="description"
+          content={language === 'fa'
+            ? 'درخواست استعلام شما دریافت شد. تیم ما به‌زودی با شما تماس خواهد گرفت.'
+            : 'Your quotation request has been received. Our team will contact you shortly.'}
+        />
+        <link rel="canonical" href={`${SITE_URL}/thank-you`} />
+        <meta property="og:title" content={language === 'fa' ? 'درخواست ثبت شد' : 'Request submitted'} />
+        <meta property="og:description" content={language === 'fa'
+          ? 'سپاس از ارسال درخواست. به سرعت پاسخ خواهیم داد.'
+          : 'Thank you for your inquiry. We will respond promptly.'} />
+        <meta property="og:url" content={`${SITE_URL}/thank-you`} />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content={`${SITE_URL}/precision-instruments.jpg`} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={language === 'fa' ? 'درخواست ثبت شد' : 'Request submitted'} />
+        <meta name="twitter:description" content={language === 'fa'
+          ? 'سپاس از ارسال درخواست. به سرعت پاسخ خواهیم داد.'
+          : 'Thank you for your inquiry. We will respond promptly.'} />
+        <meta name="twitter:image" content={`${SITE_URL}/precision-instruments.jpg`} />
+      </Helmet>
       <Header />
       <main className="pt-24 section-padding">
         <div className="container-wide">

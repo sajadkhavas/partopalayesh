@@ -95,6 +95,19 @@ export default function Products() {
           }
         />
         <link rel="canonical" href={`${SITE_URL}/products`} />
+        <meta property="og:title" content={language === 'fa' ? 'محصولات آزمایشگاهی پتروپالایش' : 'PetroPalayeshco Product Catalog'} />
+        <meta property="og:description" content={language === 'fa'
+          ? 'کاتالوگ کامل تجهیزات آزمایشگاهی، ابزار دقیق و دستگاه‌های تست فرآیندی با فیلتر و جستجو.'
+          : 'Complete catalog of laboratory equipment, instrumentation, and process testing devices with filters and search.'} />
+        <meta property="og:url" content={`${SITE_URL}/products`} />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content={`${SITE_URL}/precision-instruments.jpg`} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={language === 'fa' ? 'محصولات آزمایشگاهی پتروپالایش' : 'PetroPalayeshco Products'} />
+        <meta name="twitter:description" content={language === 'fa'
+          ? 'لیست محصولات آزمایشگاهی و ابزار دقیق برای صنایع نفت، گاز و پتروشیمی.'
+          : 'List of laboratory and instrumentation products for oil, gas, and petrochemical industries.'} />
+        <meta name="twitter:image" content={`${SITE_URL}/precision-instruments.jpg`} />
       </Helmet>
       <Header />
 

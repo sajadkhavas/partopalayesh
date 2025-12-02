@@ -59,8 +59,9 @@ export default function ProductDetail() {
     "@type": "Product",
     "name": localizedName,
     "description": localizedDescription,
+    "sku": product.id,
     "category": localizedCategory,
-    "image": product.image,
+    "image": [product.image],
     "brand": {
       "@type": "Brand",
       "name": "PetroPalayesh Co."
@@ -68,7 +69,10 @@ export default function ProductDetail() {
     "offers": {
       "@type": "Offer",
       "availability": product.inStock ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
-      "priceCurrency": "IRR"
+      "priceCurrency": "IRR",
+      "price": "0",
+      "url": `${SITE_URL}/products/${product.slug || product.id}`,
+      "priceValidUntil": "2025-12-31"
     }
   } : null;
 
@@ -85,6 +89,10 @@ export default function ProductDetail() {
           <meta property="og:url" content={`${SITE_URL}/products/${product.slug || product.id}`} />
           <meta property="og:image" content={product.image} />
           <meta property="og:type" content="product" />
+          <meta name="twitter:card" content="summary_large_image" />
+          <meta name="twitter:title" content={localizedName} />
+          <meta name="twitter:description" content={localizedDescription.substring(0, 160)} />
+          <meta name="twitter:image" content={product.image} />
           {productJsonLd && (
             <script type="application/ld+json">
               {JSON.stringify(productJsonLd)}

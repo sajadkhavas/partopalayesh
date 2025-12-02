@@ -100,6 +100,15 @@ export default function CategoryProducts() {
         <title>{localizedName}</title>
         <meta name="description" content={localizedDescription} />
         <link rel="canonical" href={`${SITE_URL}/products/category/${categorySlug}`} />
+        <meta property="og:title" content={`${localizedName} | ${language === 'fa' ? 'پتروپالایش کو' : 'PetroPalayeshco'}`} />
+        <meta property="og:description" content={localizedDescription} />
+        <meta property="og:url" content={`${SITE_URL}/products/category/${categorySlug}`} />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content={`${SITE_URL}${categoryImages[currentCategory.id] || '/analytical-equipment.jpg'}`} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={`${localizedName} | ${language === 'fa' ? 'پتروپالایش کو' : 'PetroPalayeshco'}`} />
+        <meta name="twitter:description" content={localizedDescription} />
+        <meta name="twitter:image" content={`${SITE_URL}${categoryImages[currentCategory.id] || '/analytical-equipment.jpg'}`} />
       </Helmet>
       <Header />
 
