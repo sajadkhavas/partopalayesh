@@ -114,7 +114,7 @@ const Index = () => {
 
       <main className="min-h-screen">
         {/* Hero Section - Premium Navy/Teal Design */}
-        <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden pt-24">
+        <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden pt-28 md:pt-32">
           {/* Animated Background with Glassmorphism */}
           <div className="absolute inset-0">
             <img src={heroImage} alt={language === 'fa' ? 'تجهیزات آزمایشگاهی پیشرفته' : 'Advanced Laboratory Equipment'} className="w-full h-full object-cover" loading="eager" />
@@ -147,12 +147,12 @@ const Index = () => {
             </div>
 
             {/* Main Headline - Premium Typography */}
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold mb-4 md:mb-6 leading-tight animate-fade-in max-w-5xl bg-gradient-to-br from-white via-teal-light to-white bg-clip-text text-transparent drop-shadow-2xl">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl font-extrabold mb-3 sm:mb-4 md:mb-5 lg:mb-6 leading-[1.2] sm:leading-tight animate-fade-in max-w-5xl bg-gradient-to-br from-white via-teal-light to-white bg-clip-text text-transparent drop-shadow-2xl">
               {language === 'fa' ? 'تجهیزات آزمایشگاهی با استانداردهای جهانی' : 'World-Class Laboratory Equipment'}
             </h1>
 
             {/* Subtitle */}
-            <p className="text-base md:text-lg lg:text-xl max-w-3xl mb-6 md:mb-8 text-white/95 leading-relaxed animate-fade-in font-medium">
+            <p className="text-sm sm:text-base md:text-lg lg:text-lg xl:text-xl max-w-3xl mb-4 sm:mb-6 md:mb-7 lg:mb-8 text-white/95 leading-relaxed animate-fade-in font-medium">
               {language === 'fa' ? 'تأمین و پشتیبانی تجهیزات پیشرفته برای صنایع نفت، گاز، پتروشیمی و آزمایشگاه‌های تحقیقاتی' : 'Premium equipment supply & support for oil, gas, petrochemical & research laboratories'}
             </p>
 

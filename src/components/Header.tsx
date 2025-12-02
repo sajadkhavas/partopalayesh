@@ -94,17 +94,17 @@ export const Header = () => {
   }];
   return <header className={cn('fixed top-0 left-0 right-0 z-50 transition-smooth', isScrolled ? 'bg-navy shadow-elegant-lg' : 'bg-navy-light/95 backdrop-blur-md')}>
       {/* Top Bar with Search & Stats */}
-      <div className="bg-navy-dark border-b border-teal/20">
+      <div className="bg-navy-dark border-b border-teal/20 overflow-hidden">
         <div className="container-wide">
-          <div className="flex items-center justify-between gap-6 h-12 py-2">
+          <div className="flex items-center justify-between gap-3 md:gap-6 h-12 py-2">
             {/* Search Bar */}
-            <div className="flex-1 max-w-2xl">
+            <div className="flex-1 max-w-2xl min-w-0">
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40" />
+                <Search className="absolute left-2 md:left-3 top-1/2 -translate-y-1/2 w-3 h-3 md:w-4 md:h-4 text-white/40" />
                 <input 
                   type="text" 
-                  placeholder={language === 'fa' ? 'جستجوی محصولات، برند، مدل...' : 'Search products, brands, models...'} 
-                  className="w-full h-9 pl-10 pr-4 bg-white/10 border border-teal-light/30 rounded-lg text-sm text-white placeholder:text-white/50 focus:bg-white/15 focus:border-teal-light/50 focus:outline-none transition-all" 
+                  placeholder={language === 'fa' ? 'جستجو...' : 'Search...'} 
+                  className="w-full h-8 md:h-9 pl-8 md:pl-10 pr-2 md:pr-4 bg-white/10 border border-teal-light/30 rounded-lg text-xs md:text-sm text-white placeholder:text-white/50 focus:bg-white/15 focus:border-teal-light/50 focus:outline-none transition-all" 
                   onClick={() => setIsSearchOpen(true)} 
                   readOnly 
                 />
