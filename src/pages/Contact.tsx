@@ -1,4 +1,4 @@
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
@@ -12,10 +12,14 @@ import { toast } from 'sonner';
 import { useEffect, useState } from 'react';
 import type { RFQItem } from '@/contexts/RFQContext';
 import { postRFQ } from '@/strapi';
+import { useRFQ } from '@/contexts/RFQContext';
+import { COMPANY_PHONE, SUPPORT_EMAIL, SITE_URL } from '@/config';
 
 export default function Contact() {
   const { language } = useLanguage();
   const location = useLocation();
+  const navigate = useNavigate();
+  const { clearItems } = useRFQ();
   const [subject, setSubject] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
@@ -58,6 +62,8 @@ export default function Contact() {
       toast.success(language === 'fa' ? 'درخواست شما با موفقیت ارسال شد' : 'Your request has been submitted successfully');
       setFormData({ name: '', email: '', company: '', phone: '', message: '' });
       setSubject('');
+      clearItems();
+      navigate('/thank-you');
     } catch (error) {
       console.error('Failed to submit RFQ:', error);
       toast.error(language === 'fa' ? 'خطا در ارسال درخواست' : 'Failed to submit request');
@@ -73,9 +79,9 @@ export default function Contact() {
         <meta name="description" content={language === 'fa' 
           ? 'با تیم پتروپالایش کو تماس بگیرید. مشاوره تخصصی، استعلام قیمت تجهیزات آزمایشگاهی'
           : 'Contact PetroPalayesh Co. team. Expert consultation, laboratory equipment quotation'} />
-        <link rel="canonical" href="https://YOURDOMAIN.com/contact" />
+        <link rel="canonical" href={`${SITE_URL}/contact`} />
         <meta property="og:title" content={language === 'fa' ? 'تماس با ما | پتروپالایش کو' : 'Contact Us | PetroPalayesh Co.'} />
-        <meta property="og:url" content="https://YOURDOMAIN.com/contact" />
+        <meta property="og:url" content={`${SITE_URL}/contact`} />
       </Helmet>
       <Header />
       
@@ -127,28 +133,28 @@ export default function Contact() {
 
                 <div className="space-y-6">
                   <div className="flex gap-4">
-                    <div className="w-12 h-12 bg-gradient-accent rounded-lg flex items-center justify-center flex-shrink-0">
-                      <Phone className="w-6 h-6 text-white" />
+                      <div className="w-12 h-12 bg-gradient-accent rounded-lg flex items-center justify-center flex-shrink-0">
+                        <Phone className="w-6 h-6 text-white" />
+                      </div>
+                      <div>
+                        <h3 className="font-bold mb-1">
+                          {language === 'fa' ? 'تلفن' : 'Phone'}
+                        </h3>
+                        <p className="text-muted-foreground" dir="ltr">{COMPANY_PHONE}</p>
+                      </div>
                     </div>
-                    <div>
-                      <h3 className="font-bold mb-1">
-                        {language === 'fa' ? 'تلفن' : 'Phone'}
-                      </h3>
-                      <p className="text-muted-foreground">+98 21 1234 5678</p>
-                    </div>
-                  </div>
 
                   <div className="flex gap-4">
-                    <div className="w-12 h-12 bg-gradient-accent rounded-lg flex items-center justify-center flex-shrink-0">
-                      <Mail className="w-6 h-6 text-white" />
+                      <div className="w-12 h-12 bg-gradient-accent rounded-lg flex items-center justify-center flex-shrink-0">
+                        <Mail className="w-6 h-6 text-white" />
+                      </div>
+                      <div>
+                        <h3 className="font-bold mb-1">
+                          {language === 'fa' ? 'ایمیل' : 'Email'}
+                        </h3>
+                        <p className="text-muted-foreground" dir="ltr">{SUPPORT_EMAIL}</p>
+                      </div>
                     </div>
-                    <div>
-                      <h3 className="font-bold mb-1">
-                        {language === 'fa' ? 'ایمیل' : 'Email'}
-                      </h3>
-                      <p className="text-muted-foreground">info@petrotech.com</p>
-                    </div>
-                  </div>
 
                   <div className="flex gap-4">
                     <div className="w-12 h-12 bg-gradient-accent rounded-lg flex items-center justify-center flex-shrink-0">

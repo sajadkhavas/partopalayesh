@@ -20,6 +20,7 @@ export const SearchModal = ({
   } = useLanguage();
   const inputRef = useRef<HTMLInputElement>(null);
   const recognitionRef = useRef<any>(null);
+  const isSpeechSupported = typeof window !== 'undefined' && ("webkitSpeechRecognition" in window || "SpeechRecognition" in window);
 
   // AI-powered suggestions based on popular searches
   const aiSuggestions = language === 'fa' ? ['سنسورهای ATEX', 'کالیبراسیون NJ', 'تجهیزات آنالیز', 'ابزار دقیق'] : ['ATEX sensors', 'NJ calibration', 'Analytical equipment', 'Precision instruments'];
@@ -79,21 +80,29 @@ export const SearchModal = ({
 
   // Voice search setup
   useEffect(() => {
-    if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
-      const SpeechRecognition = (window as any).webkitSpeechRecognition || (window as any).SpeechRecognition;
-      recognitionRef.current = new SpeechRecognition();
-      recognitionRef.current.continuous = false;
-      recognitionRef.current.interimResults = true;
-      recognitionRef.current.lang = language === 'fa' ? 'fa-IR' : 'en-US';
-      recognitionRef.current.onresult = (event: any) => {
-        const transcript = Array.from(event.results).map((result: any) => result[0]).map((result: any) => result.transcript).join('');
-        setQuery(transcript);
-      };
-      recognitionRef.current.onend = () => {
-        setIsListening(false);
-      };
-    }
-  }, [language]);
+    if (!isSpeechSupported) return;
+
+    const SpeechRecognition = (window as any).webkitSpeechRecognition || (window as any).SpeechRecognition;
+    recognitionRef.current = new SpeechRecognition();
+    recognitionRef.current.continuous = false;
+    recognitionRef.current.interimResults = true;
+    recognitionRef.current.lang = language === 'fa' ? 'fa-IR' : 'en-US';
+    recognitionRef.current.onresult = (event: any) => {
+      const transcript = Array.from(event.results)
+        .map((result: any) => result[0])
+        .map((result: any) => result.transcript)
+        .join('');
+      setQuery(transcript);
+    };
+    recognitionRef.current.onend = () => {
+      setIsListening(false);
+    };
+
+    return () => {
+      recognitionRef.current?.abort?.();
+      recognitionRef.current = null;
+    };
+  }, [isSpeechSupported, language]);
   const toggleVoiceSearch = useCallback(() => {
     if (!recognitionRef.current) return;
     if (isListening) {
@@ -115,11 +124,23 @@ export const SearchModal = ({
           <input ref={inputRef} type="text" value={query} onChange={e => setQuery(e.target.value)} placeholder={language === 'fa' ? 'جستجوی سنسورها، مشخصات، گواهینامه‌ها... (مثال: "سنسور فشار ATEX با دقت 0.1%")' : 'Search sensors, specs, certifications... (e.g., "ATEX pressure 0.1%")'} className={cn('w-full px-6 py-4 text-lg rounded-2xl', 'bg-background border-2 border-primary/20', 'focus:border-primary focus:ring-4 ring-primary/10', 'shadow-2xl transition-all outline-none', language === 'fa' ? 'text-right pr-14 pl-24' : 'pl-14 pr-24')} />
           <Search className={cn('absolute top-1/2 -translate-y-1/2 w-6 h-6 text-primary', language === 'fa' ? 'right-5' : 'left-5')} />
           
-          {recognitionRef.current && <button onClick={toggleVoiceSearch} className={cn('absolute top-1/2 -translate-y-1/2 w-6 h-6 transition-colors', isListening ? 'text-accent animate-pulse' : 'text-muted-foreground hover:text-secondary', language === 'fa' ? 'left-16' : 'right-16')}>
+          {isSpeechSupported && <button
+              type="button"
+              onClick={toggleVoiceSearch}
+              className={cn('absolute top-1/2 -translate-y-1/2 w-6 h-6 transition-colors', isListening ? 'text-accent animate-pulse' : 'text-muted-foreground hover:text-secondary', language === 'fa' ? 'left-16' : 'right-16')}
+              aria-label={language === 'fa' ? 'جستجوی صوتی' : 'Voice search'}
+              title={language === 'fa' ? 'جستجوی صوتی' : 'Voice search'}
+            >
               <Mic />
             </button>}
-          
-          <button onClick={onClose} className={cn('absolute top-1/2 -translate-y-1/2 w-6 h-6 transition-colors text-muted-foreground hover:text-destructive', language === 'fa' ? 'left-5' : 'right-5')}>
+
+          <button
+            type="button"
+            onClick={onClose}
+            className={cn('absolute top-1/2 -translate-y-1/2 w-6 h-6 transition-colors text-muted-foreground hover:text-destructive', language === 'fa' ? 'left-5' : 'right-5')}
+            aria-label={language === 'fa' ? 'بستن جستجو' : 'Close search'}
+            title={language === 'fa' ? 'بستن' : 'Close'}
+          >
             <X />
           </button>
         </div>
