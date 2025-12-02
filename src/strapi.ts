@@ -1,5 +1,5 @@
 // src/strapi.ts - Compatible with Strapi v5
-import { Product } from '@/data/products';
+import { Product, products as localProducts } from '@/data/products';
 
 export const API = import.meta.env.VITE_STRAPI_URL ?? 'https://api.khavasmelk.ir';
 const TOKEN = import.meta.env.VITE_STRAPI_TOKEN;
@@ -70,6 +70,7 @@ export async function fetchProducts(params: Record<string, string> = {}) {
       const img: StrapiImage = p?.image;
       const cat: StrapiRel = p?.category;
       const sub: StrapiRel = p?.subcategory;
+      const slug = p?.slug || p?.documentId || String(p?.id) || '';
       
       const imgUrl =
         img?.formats?.medium?.url ||
@@ -78,7 +79,8 @@ export async function fetchProducts(params: Record<string, string> = {}) {
         '';
 
       return {
-        id: p?.slug || p?.documentId || String(p?.id) || '',
+        id: slug,
+        slug,
         name: p?.nameFa || p?.title || p?.name || '',
         nameEn: p?.nameEn || p?.titleEn || p?.name || '',
         category: cat?.nameFa || cat?.name || '',
@@ -114,11 +116,17 @@ export async function fetchProductsBySlug(categorySlug = '', subcategorySlug = '
 }
 
 export async function fetchProduct(slug: string) {
-  const items = await fetchProducts({ 
-    'filters[slug][$eq]': slug, 
-    'pagination[pageSize]': '1' 
+  const items = await fetchProducts({
+    'filters[slug][$eq]': slug,
+    'pagination[pageSize]': '1'
   });
-  return items[0] || null;
+
+  if (items[0]) {
+    return items[0];
+  }
+
+  const fallback = localProducts.find(p => p.id === slug || p.slug === slug);
+  return fallback || null;
 }
 
 export interface RFQSubmission {
