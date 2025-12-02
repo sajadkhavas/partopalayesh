@@ -223,14 +223,28 @@ export const Header = () => {
           <div className="flex items-center gap-1.5 md:gap-2 shrink-0">
             
 
-            <Button variant="ghost" size="icon" onClick={() => setLanguage(language === 'fa' ? 'en' : 'fa')} className="relative text-white hover:bg-white/10 w-9 h-9 md:w-10 md:h-10">
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              onClick={() => setLanguage(language === 'fa' ? 'en' : 'fa')} 
+              className="relative text-white hover:bg-white/10 w-9 h-9 md:w-10 md:h-10"
+              aria-label={language === 'fa' ? 'تغییر زبان' : 'Change language'}
+              title={language === 'fa' ? 'English' : 'فارسی'}
+            >
               <Globe className="w-4 h-4 md:w-5 md:h-5" />
               <span className="absolute -bottom-1 -right-1 text-[9px] md:text-[10px] font-bold bg-accent text-white rounded px-1">
                 {language.toUpperCase()}
               </span>
             </Button>
 
-            <Button variant="ghost" size="icon" className="relative text-white hover:bg-white/10 w-9 h-9 md:w-10 md:h-10" onClick={() => setIsOpen(true)}>
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              className="relative text-white hover:bg-white/10 w-9 h-9 md:w-10 md:h-10" 
+              onClick={() => setIsOpen(true)}
+              aria-label={language === 'fa' ? 'لیست استعلام' : 'RFQ list'}
+              title={language === 'fa' ? 'لیست استعلام' : 'Request for Quote'}
+            >
               <ShoppingCart className="w-4 h-4 md:w-5 md:h-5" />
               {items.length > 0 && <span className="absolute -top-1 -right-1 w-4 h-4 md:w-5 md:h-5 bg-accent text-white text-[10px] md:text-xs rounded-full flex items-center justify-center">
                   {items.length}
