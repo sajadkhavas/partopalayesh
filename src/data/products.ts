@@ -1,6 +1,6 @@
 export interface Product {
   id: string;
-  slug?: string;
+  slug: string;
   name: string;
   nameEn: string;
   category: string;
@@ -100,6 +100,7 @@ export const products: Product[] = [
   // Analytical Instruments - Spectroscopy
   {
     id: 'ftir-base-100',
+    slug: 'ftir-base-100',
     name: 'دستگاه FTIR مدل Base 100',
     nameEn: 'FTIR Spectrometer Base 100',
     category: 'تجهیزات آنالیز دستگاهی',
@@ -122,6 +123,7 @@ export const products: Product[] = [
   },
   {
     id: 'gc-smart-200',
+    slug: 'gc-smart-200',
     name: 'کروماتوگراف گازی Smart 200',
     nameEn: 'Gas Chromatograph Smart 200',
     category: 'تجهیزات آنالیز دستگاهی',
@@ -144,6 +146,7 @@ export const products: Product[] = [
   },
   {
     id: 'bet-pro-300',
+    slug: 'bet-pro-300',
     name: 'دستگاه BET مدل Pro 300',
     nameEn: 'BET Surface Analyzer Pro 300',
     category: 'تجهیزات آنالیز دستگاهی',
@@ -166,6 +169,7 @@ export const products: Product[] = [
   },
   {
     id: 'dsc-lab-400',
+    slug: 'dsc-lab-400',
     name: 'دستگاه DSC مدل Lab 400',
     nameEn: 'DSC Analyzer Lab 400',
     category: 'تجهیزات آنالیز دستگاهی',
@@ -188,6 +192,7 @@ export const products: Product[] = [
   },
   {
     id: 'dls-nano-500',
+    slug: 'dls-nano-500',
     name: 'دستگاه DLS مدل Nano 500',
     nameEn: 'DLS Particle Sizer Nano 500',
     category: 'تجهیزات آنالیز دستگاهی',
@@ -212,6 +217,7 @@ export const products: Product[] = [
   // Precision Instruments
   {
     id: 'coriolis-mf-10',
+    slug: 'coriolis-mf-10',
     name: 'فلومتر کوریولیس MF-10',
     nameEn: 'Coriolis Flow Meter MF-10',
     category: 'ابزار دقیق',
@@ -234,6 +240,7 @@ export const products: Product[] = [
   },
   {
     id: 'gasguard-x1',
+    slug: 'gasguard-x1',
     name: 'دتکتور گاز GasGuard X1',
     nameEn: 'Gas Detector GasGuard X1',
     category: 'ابزار دقیق',
@@ -256,6 +263,7 @@ export const products: Product[] = [
   },
   {
     id: 'chempump-ip-20',
+    slug: 'chempump-ip-20',
     name: 'پمپ تزریق ChemPump IP-20',
     nameEn: 'Chemical Injection Pump ChemPump IP-20',
     category: 'ابزار دقیق',
@@ -280,6 +288,7 @@ export const products: Product[] = [
   // Sample Preparation
   {
     id: 'homogenizer-h-700',
+    slug: 'homogenizer-h-700',
     name: 'هموژنایزر H-700',
     nameEn: 'Homogenizer H-700',
     category: 'آماده‌سازی نمونه',
@@ -302,6 +311,7 @@ export const products: Product[] = [
   },
   {
     id: 'centriflow-c-20r',
+    slug: 'centriflow-c-20r',
     name: 'سانتریفیوژ CentriCool C-20R',
     nameEn: 'Centrifuge CentriCool C-20R',
     category: 'آماده‌سازی نمونه',
@@ -326,6 +336,7 @@ export const products: Product[] = [
   // Petroleum Testing
   {
     id: 'petrovis-v-445',
+    slug: 'petrovis-v-445',
     name: 'ویسکومتر PetroVis V-445',
     nameEn: 'Viscometer PetroVis V-445',
     category: 'تجهیزات ویژه نفت و گاز',
@@ -348,6 +359,7 @@ export const products: Product[] = [
   },
   {
     id: 'bombcal-bc-600',
+    slug: 'bombcal-bc-600',
     name: 'بمب کالریمتر BombCal BC-600',
     nameEn: 'Bomb Calorimeter BombCal BC-600',
     category: 'تجهیزات ویژه نفت و گاز',
@@ -370,6 +382,7 @@ export const products: Product[] = [
   },
   {
     id: 'ccr-analyzer-c-7',
+    slug: 'ccr-analyzer-c-7',
     name: 'آنالیزگر باقی‌مانده کربن CCR C-7',
     nameEn: 'Carbon Residue Analyzer CCR C-7',
     category: 'تجهیزات ویژه نفت و گاز',
@@ -392,6 +405,7 @@ export const products: Product[] = [
   },
   {
     id: 'salt-in-crude-sc-50',
+    slug: 'salt-in-crude-sc-50',
     name: 'آنالیزگر نمک Salt-in-Crude SC-50',
     nameEn: 'Salt in Crude Analyzer SC-50',
     category: 'تجهیزات ویژه نفت و گاز',

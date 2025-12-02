@@ -16,7 +16,7 @@ export const ProductCard = ({ product, viewMode = 'grid' }: ProductCardProps) =>
   const { language } = useLanguage();
   const isInRFQ = items.some(item => item.id === product.id);
 
-  const slug = product.slug || product.id;
+  const slug = product.slug;
 
   const handleAddToRFQ = (e: React.MouseEvent) => {
     e.preventDefault();
