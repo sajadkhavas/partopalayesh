@@ -70,11 +70,11 @@ export default function Catalogs() {
         <meta property="og:description" content={pageDescription} />
         <meta property="og:url" content={`${SITE_URL}/resources/catalogs`} />
         <meta property="og:type" content="website" />
-        <meta property="og:image" content={`${SITE_URL}/category-analytical.jpg`} />
+        <meta property="og:image" content={`${SITE_URL}/analytical-equipment.jpg`} />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={pageTitle} />
         <meta name="twitter:description" content={pageDescription} />
-        <meta name="twitter:image" content={`${SITE_URL}/category-analytical.jpg`} />
+        <meta name="twitter:image" content={`${SITE_URL}/analytical-equipment.jpg`} />
       </Helmet>
       <Header />
 

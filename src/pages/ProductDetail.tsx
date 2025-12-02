@@ -40,6 +40,12 @@ export default function ProductDetail() {
 
   const isInRFQ = product ? items.some(item => item.id === product.id) : false;
 
+  const metaImage = product
+    ? product.image.startsWith('http')
+      ? product.image
+      : `${SITE_URL}${product.image}`
+    : `${SITE_URL}/analytical-equipment.jpg`;
+
   const handleAddToRFQ = () => {
      if (!product) return;
     addItem({
@@ -61,7 +67,7 @@ export default function ProductDetail() {
     "description": localizedDescription,
     "sku": product.id,
     "category": localizedCategory,
-    "image": [product.image],
+    "image": [metaImage],
     "brand": {
       "@type": "Brand",
       "name": "PetroPalayesh Co."
@@ -87,12 +93,12 @@ export default function ProductDetail() {
           <meta property="og:title" content={localizedName} />
           <meta property="og:description" content={localizedDescription.substring(0, 160)} />
           <meta property="og:url" content={`${SITE_URL}/products/${product.slug || product.id}`} />
-          <meta property="og:image" content={product.image} />
+          <meta property="og:image" content={metaImage} />
           <meta property="og:type" content="product" />
           <meta name="twitter:card" content="summary_large_image" />
           <meta name="twitter:title" content={localizedName} />
           <meta name="twitter:description" content={localizedDescription.substring(0, 160)} />
-          <meta name="twitter:image" content={product.image} />
+          <meta name="twitter:image" content={metaImage} />
           {productJsonLd && (
             <script type="application/ld+json">
               {JSON.stringify(productJsonLd)}

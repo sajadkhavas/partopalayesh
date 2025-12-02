@@ -1,5 +1,7 @@
 import { useLocation, Link } from "react-router-dom";
 import { useEffect } from "react";
+import { Helmet } from 'react-helmet-async';
+import { SITE_URL } from '@/config';
 import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator, BreadcrumbPage } from '@/components/ui/breadcrumb';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
@@ -15,6 +17,23 @@ const NotFound = () => {
 
   return (
     <div className="min-h-screen bg-background" dir={language === 'fa' ? 'rtl' : 'ltr'}>
+      <Helmet>
+        <title>{language === 'fa' ? 'صفحه یافت نشد | پتروپالایش کو' : 'Page not found | PetroPalayeshco'}</title>
+        <meta
+          name="description"
+          content={language === 'fa' ? 'متأسفانه صفحه مورد نظر شما پیدا نشد.' : 'The page you are looking for could not be found.'}
+        />
+        <link rel="canonical" href={`${SITE_URL}${location.pathname}`} />
+        <meta property="og:title" content={language === 'fa' ? 'صفحه یافت نشد' : 'Page not found'} />
+        <meta property="og:description" content={language === 'fa' ? 'این صفحه در دسترس نیست.' : 'This page is unavailable.'} />
+        <meta property="og:url" content={`${SITE_URL}${location.pathname}`} />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content={`${SITE_URL}/analytical-equipment.jpg`} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={language === 'fa' ? 'صفحه یافت نشد' : 'Page not found'} />
+        <meta name="twitter:description" content={language === 'fa' ? 'این صفحه در دسترس نیست.' : 'This page is unavailable.'} />
+        <meta name="twitter:image" content={`${SITE_URL}/analytical-equipment.jpg`} />
+      </Helmet>
       <Header />
       
       <main className="pt-20 lg:pt-24">
