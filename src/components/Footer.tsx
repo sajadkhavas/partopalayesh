@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Mail, Phone, MapPin, Linkedin, Instagram, Send } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { COMPANY_PHONE, WHATSAPP_NUMBER, SUPPORT_EMAIL } from '@/config';
 
 export const Footer = () => {
   const { language } = useLanguage();
@@ -138,18 +139,18 @@ export const Footer = () => {
               <li className="flex items-start gap-3 text-sm text-primary-foreground/75">
                 <Phone className="w-4 h-4 mt-1 flex-shrink-0 text-accent" />
                 <div className="flex flex-col">
-                  <a href="tel:+982112345678" className="hover:text-accent transition-smooth" dir="ltr">
-                    +98 21 1234 5678
+                  <a href={`tel:${COMPANY_PHONE}`} className="hover:text-accent transition-smooth" dir="ltr">
+                    {COMPANY_PHONE}
                   </a>
-                  <a href="tel:+989123456789" className="hover:text-accent transition-smooth" dir="ltr">
-                    +98 912 345 6789
+                  <a href={`tel:+${WHATSAPP_NUMBER}`} className="hover:text-accent transition-smooth" dir="ltr">
+                    +{WHATSAPP_NUMBER}
                   </a>
                 </div>
               </li>
               <li className="flex items-start gap-3 text-sm text-primary-foreground/75">
                 <Mail className="w-4 h-4 mt-1 flex-shrink-0 text-accent" />
-                <a href="mailto:info@petropalayeshco.ir" className="hover:text-accent transition-smooth">
-                  info@petropalayeshco.ir
+                <a href={`mailto:${SUPPORT_EMAIL}`} className="hover:text-accent transition-smooth">
+                  {SUPPORT_EMAIL}
                 </a>
               </li>
             </ul>

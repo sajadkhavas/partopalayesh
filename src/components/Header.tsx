@@ -254,7 +254,13 @@ export const Header = () => {
               </Button>
             </Link>
 
-            <Button variant="ghost" size="icon" className="lg:hidden w-9 h-9" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              className="lg:hidden w-9 h-9 text-white hover:bg-white/10" 
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              aria-label={language === 'fa' ? 'منو' : 'Menu'}
+            >
               {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </Button>
           </div>
