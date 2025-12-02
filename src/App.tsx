@@ -22,6 +22,8 @@ import Contact from "./pages/Contact";
 import ThankYou from "./pages/ThankYou";
 import FAQ from "./pages/FAQ";
 import NotFound from "./pages/NotFound";
+import Blog from "./pages/Blog";
+import Catalogs from "./pages/Catalogs";
 
 const queryClient = new QueryClient();
 
@@ -42,7 +44,7 @@ const App = () => {
                   <Route path="/" element={<Index />} />
                   <Route path="/products" element={<Products />} />
                   <Route path="/products/category/:categorySlug" element={<CategoryProducts />} />
-                  <Route path="/products/:id" element={<ProductDetail />} />
+                  <Route path="/products/:slug" element={<ProductDetail />} />
                   <Route path="/industries" element={<Industries />} />
                   <Route path="/industries/:slug" element={<Industries />} />
                   <Route path="/brands" element={<Brands />} />
@@ -52,8 +54,8 @@ const App = () => {
                   <Route path="/contact" element={<Contact />} />
                   <Route path="/thank-you" element={<ThankYou />} />
                   <Route path="/resources/faq" element={<FAQ />} />
-                  <Route path="/resources/blog" element={<FAQ />} />
-                  <Route path="/resources/catalogs" element={<FAQ />} />
+                  <Route path="/resources/blog" element={<Blog />} />
+                  <Route path="/resources/catalogs" element={<Catalogs />} />
                   {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                   <Route path="*" element={<NotFound />} />
                 </Routes>

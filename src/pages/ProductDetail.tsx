@@ -15,15 +15,17 @@ import { useProducts } from '@/hooks/useProducts';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Skeleton } from '@/components/ui/skeleton';
 import { cn } from '@/lib/utils';
+import { SITE_URL } from '@/config';
 
 
 export default function ProductDetail() {
-  const { id } = useParams();
+  const { slug } = useParams();
   const { language } = useLanguage();
   const { items, addItem } = useRFQ();
-  const { data: product, isLoading, error } = useProduct(id);
+  const { data: product, isLoading, error } = useProduct(slug);
   const { data: allProducts } = useProducts();
   const [selectedImage, setSelectedImage] = useState(0);
+  const galleryImages = product ? [product.image] : [];
 
   const relatedProducts = useMemo(() => {
     if (!product) return [];
@@ -32,13 +34,9 @@ export default function ProductDetail() {
       .slice(0, 4);
   }, [allProducts, product]);
 
- if (!id) {
+  if (!slug) {
     return <Navigate to="/products" replace />;
   }
-
- if (!isLoading && !product) {
-    return <Navigate to="/products" replace />;
-   }
 
   const isInRFQ = product ? items.some(item => item.id === product.id) : false;
 
@@ -81,10 +79,10 @@ export default function ProductDetail() {
         <Helmet>
           <title>{`${localizedName} | ${language === 'fa' ? 'پتروپالایش کو' : 'PetroPalayesh Co.'}`}</title>
           <meta name="description" content={localizedDescription.substring(0, 160)} />
-          <link rel="canonical" href={`https://YOURDOMAIN.com/products/${product.id}`} />
+          <link rel="canonical" href={`${SITE_URL}/products/${product.slug || product.id}`} />
           <meta property="og:title" content={localizedName} />
           <meta property="og:description" content={localizedDescription.substring(0, 160)} />
-          <meta property="og:url" content={`https://YOURDOMAIN.com/products/${product.id}`} />
+          <meta property="og:url" content={`${SITE_URL}/products/${product.slug || product.id}`} />
           <meta property="og:image" content={product.image} />
           <meta property="og:type" content="product" />
           {productJsonLd && (
@@ -130,6 +128,22 @@ export default function ProductDetail() {
               </Alert>
             )}
 
+            {!isLoading && !product && (
+              <Alert variant="destructive">
+                <AlertTitle>{language === 'fa' ? 'محصول یافت نشد' : 'Product not found'}</AlertTitle>
+                <AlertDescription className="flex flex-col gap-3">
+                  <span>
+                    {language === 'fa'
+                      ? 'این محصول در دسترس نیست یا از دسترس خارج شده است.'
+                      : 'The requested product is unavailable or has been removed.'}
+                  </span>
+                  <Link to="/products" className="text-primary font-semibold">
+                    {language === 'fa' ? 'بازگشت به محصولات' : 'Back to products'}
+                  </Link>
+                </AlertDescription>
+              </Alert>
+            )}
+
             {isLoading || !product ? (
               <div className="grid lg:grid-cols-2 gap-8">
                 <div className="space-y-4">
@@ -163,8 +177,8 @@ export default function ProductDetail() {
                   {/* Image Gallery with Zoom */}
                   <div className="space-y-4">
                     <div className="relative aspect-square rounded-2xl overflow-hidden bg-gradient-to-br from-muted to-background shadow-xl border-2 border-teal/20 group">
-                      <img 
-                        src={product.image} 
+                      <img
+                        src={galleryImages[selectedImage] || product.image}
                         alt={localizedName}
                         className="w-full h-full object-contain p-8 transition-all duration-500 group-hover:scale-110 cursor-zoom-in"
                       />
@@ -175,7 +189,7 @@ export default function ProductDetail() {
                     </div>
                     {/* Thumbnail Grid - Premium Style */}
                     <div className="grid grid-cols-4 gap-3">
-                      {[product.image, product.image, product.image, product.image].map((img, idx) => (
+                      {galleryImages.map((img, idx) => (
                         <button
                           key={idx}
                           onClick={() => setSelectedImage(idx)}
