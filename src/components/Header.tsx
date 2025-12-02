@@ -130,18 +130,18 @@ export const Header = () => {
         </div>
       </div>
 
-      <div className="container-wide">
-        <div className="flex items-center justify-between h-16 lg:h-18">
+      <div className="container-wide overflow-hidden">
+        <div className="flex items-center justify-between h-16 lg:h-18 gap-2">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-3 transition-smooth hover:opacity-90">
-            <div className="w-11 h-11 bg-white rounded-lg flex items-center justify-center shadow-lg">
-              <span className="text-primary font-bold text-xl">PP</span>
+          <Link to="/" className="flex items-center gap-2 md:gap-3 transition-smooth hover:opacity-90 shrink-0">
+            <div className="w-9 h-9 md:w-11 md:h-11 bg-white rounded-lg flex items-center justify-center shadow-lg">
+              <span className="text-primary font-bold text-lg md:text-xl">PP</span>
             </div>
             <div className={cn('flex flex-col', language === 'fa' ? 'items-end' : 'items-start')}>
-              <span className="font-bold text-base lg:text-lg text-white">
+              <span className="font-bold text-sm md:text-base lg:text-lg text-white whitespace-nowrap">
                 {language === 'fa' ? 'پتروپالایش کو' : 'PetroPalayeshco'}
               </span>
-              <span className="text-xs text-white/60 hidden sm:block">
+              <span className="text-[10px] md:text-xs text-white/60 hidden sm:block">
                 {language === 'fa' ? 'تأمین تجهیزات آزمایشگاهی و ابزار دقیق' : 'Lab Equipment & Precision Instruments'}
               </span>
             </div>
@@ -220,31 +220,31 @@ export const Header = () => {
           </nav>
 
           {/* Actions */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5 md:gap-2 shrink-0">
             
 
-            <Button variant="ghost" size="icon" onClick={() => setLanguage(language === 'fa' ? 'en' : 'fa')} className="relative text-white hover:bg-white/10">
-              <Globe className="w-5 h-5" />
-              <span className="absolute -bottom-1 -right-1 text-[10px] font-bold bg-accent text-white rounded px-1">
+            <Button variant="ghost" size="icon" onClick={() => setLanguage(language === 'fa' ? 'en' : 'fa')} className="relative text-white hover:bg-white/10 w-9 h-9 md:w-10 md:h-10">
+              <Globe className="w-4 h-4 md:w-5 md:h-5" />
+              <span className="absolute -bottom-1 -right-1 text-[9px] md:text-[10px] font-bold bg-accent text-white rounded px-1">
                 {language.toUpperCase()}
               </span>
             </Button>
 
-            <Button variant="ghost" size="icon" className="relative text-white hover:bg-white/10" onClick={() => setIsOpen(true)}>
-              <ShoppingCart className="w-5 h-5" />
-              {items.length > 0 && <span className="absolute -top-1 -right-1 w-5 h-5 bg-accent text-white text-xs rounded-full flex items-center justify-center">
+            <Button variant="ghost" size="icon" className="relative text-white hover:bg-white/10 w-9 h-9 md:w-10 md:h-10" onClick={() => setIsOpen(true)}>
+              <ShoppingCart className="w-4 h-4 md:w-5 md:h-5" />
+              {items.length > 0 && <span className="absolute -top-1 -right-1 w-4 h-4 md:w-5 md:h-5 bg-accent text-white text-[10px] md:text-xs rounded-full flex items-center justify-center">
                   {items.length}
                 </span>}
             </Button>
 
             <Link to="/contact" className="hidden md:block">
-              <Button className="bg-teal hover:bg-teal-light text-white font-bold shadow-lg hover:shadow-glow transition-all">
+              <Button className="bg-teal hover:bg-teal-light text-white font-bold shadow-lg hover:shadow-glow transition-all text-sm whitespace-nowrap">
                 {language === 'fa' ? 'درخواست استعلام' : 'Request Quote'}
               </Button>
             </Link>
 
-            <Button variant="ghost" size="icon" className="lg:hidden" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
-              {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            <Button variant="ghost" size="icon" className="lg:hidden w-9 h-9" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+              {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </Button>
           </div>
         </div>
