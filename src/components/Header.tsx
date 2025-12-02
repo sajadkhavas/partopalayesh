@@ -25,9 +25,10 @@ export const Header = () => {
     setIsOpen
   } = useRFQ();
   const location = useLocation();
+  const isHomePage = location.pathname === '/';
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      setIsScrolled(window.scrollY > 50);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
@@ -59,23 +60,29 @@ export const Header = () => {
     }
   };
   const menuItems = [{
+    id: 'home',
     label: t('nav.home'),
     path: '/'
   }, {
+    id: 'products',
     label: t('nav.products'),
     path: '/products',
     megaMenu: 'products'
   }, {
+    id: 'industries',
     label: language === 'fa' ? 'صنایع' : 'Industries',
     path: '/industries',
     megaMenu: 'industries'
   }, {
+    id: 'services',
     label: t('nav.services'),
     path: '/services'
   }, {
+    id: 'brands',
     label: language === 'fa' ? 'برندها' : 'Brands',
     path: '/brands'
   }, {
+    id: 'resources',
     label: t('nav.resources'),
     path: '/resources',
     submenu: [{
@@ -89,30 +96,34 @@ export const Header = () => {
       path: '/resources/faq'
     }]
   }, {
+    id: 'about',
     label: t('nav.about'),
     path: '/about'
   }];
-  return <header className={cn('fixed top-0 left-0 right-0 z-50 transition-smooth', isScrolled ? 'bg-navy shadow-elegant-lg' : 'bg-navy-light/95 backdrop-blur-md')}>
+  const transparentHeader = isHomePage && !isScrolled;
+  const navTextClass = transparentHeader ? 'text-white/80 hover:text-white' : 'text-white/80 hover:text-white';
+  const navActiveClass = transparentHeader ? 'text-white bg-white/10' : 'text-white bg-white/15';
+  return <header className={cn('fixed top-0 left-0 right-0 z-50 transition-smooth border-b', transparentHeader ? 'bg-transparent border-transparent' : 'bg-navy/95 backdrop-blur-md border-teal/20 shadow-elegant-lg')}>
       {/* Top Bar with Search & Stats */}
-      <div className="bg-navy-dark border-b border-teal/20 overflow-hidden">
+      <div className={cn('border-b transition-smooth', transparentHeader ? 'bg-navy/40 border-white/10 backdrop-blur-md' : 'bg-navy-dark border-teal/20')}>
         <div className="container-wide">
           <div className="flex items-center justify-between gap-3 md:gap-6 h-12 py-2">
             {/* Search Bar */}
             <div className="flex-1 max-w-2xl min-w-0">
               <div className="relative">
-                <Search className="absolute left-2 md:left-3 top-1/2 -translate-y-1/2 w-3 h-3 md:w-4 md:h-4 text-white/40" />
-                <input 
-                  type="text" 
-                  placeholder={language === 'fa' ? 'جستجو...' : 'Search...'} 
-                  className="w-full h-8 md:h-9 pl-8 md:pl-10 pr-2 md:pr-4 bg-white/10 border border-teal-light/30 rounded-lg text-xs md:text-sm text-white placeholder:text-white/50 focus:bg-white/15 focus:border-teal-light/50 focus:outline-none transition-all" 
-                  onClick={() => setIsSearchOpen(true)} 
-                  readOnly 
+                <Search className={cn('absolute left-2 md:left-3 top-1/2 -translate-y-1/2 w-3 h-3 md:w-4 md:h-4', transparentHeader ? 'text-white/70' : 'text-white/50')} />
+                <input
+                  type="text"
+                  placeholder={language === 'fa' ? 'جستجو...' : 'Search...'}
+                  className={cn('w-full h-9 md:h-10 pl-8 md:pl-10 pr-2 md:pr-4 rounded-full text-xs md:text-sm transition-smooth shadow-inner', transparentHeader ? 'bg-white/10 border border-white/30 text-white placeholder:text-white/60 focus:bg-white/15' : 'bg-white text-foreground border border-teal/30 placeholder:text-muted-foreground/70 focus:border-primary/50 focus:ring-2 focus:ring-primary/20')}
+                  onClick={() => setIsSearchOpen(true)}
+                  readOnly
                 />
               </div>
             </div>
 
             {/* Stats */}
-            <div className="hidden md:flex items-center gap-6 text-xs text-white/70">
+            <div className={cn('hidden md:flex items-center gap-6 text-xs', transparentHeader ? 'text-white/80' : 'text-white/70')}>
               <span className="flex items-center gap-2">
                 <span className="font-bold text-white">+20</span>
                 {language === 'fa' ? 'سال تجربه' : 'years experience'}
@@ -130,18 +141,18 @@ export const Header = () => {
         </div>
       </div>
 
-      <div className="container-wide overflow-hidden">
-        <div className="flex items-center justify-between h-16 lg:h-18 gap-2">
+      <div className="container-wide">
+        <div className="flex items-center justify-between h-16 lg:h-20 gap-2">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 md:gap-3 transition-smooth hover:opacity-90 shrink-0">
-            <div className="w-9 h-9 md:w-11 md:h-11 bg-white rounded-lg flex items-center justify-center shadow-lg">
-              <span className="text-primary font-bold text-lg md:text-xl">PP</span>
+            <div className={cn('w-10 h-10 md:w-12 md:h-12 rounded-xl flex items-center justify-center shadow-lg border', transparentHeader ? 'bg-white/90 text-primary border-white/30' : 'bg-primary text-primary-foreground border-primary/50')}>
+              <span className="font-bold text-lg md:text-xl">PP</span>
             </div>
             <div className={cn('flex flex-col', language === 'fa' ? 'items-end' : 'items-start')}>
-              <span className="font-bold text-sm md:text-base lg:text-lg text-white whitespace-nowrap">
+              <span className={cn('font-bold text-sm md:text-base lg:text-lg whitespace-nowrap', transparentHeader ? 'text-white' : 'text-foreground')}>
                 {language === 'fa' ? 'پتروپالایش کو' : 'PetroPalayeshco'}
               </span>
-              <span className="text-[10px] md:text-xs text-white/60 hidden sm:block">
+              <span className={cn('text-[10px] md:text-xs hidden sm:block', transparentHeader ? 'text-white/70' : 'text-muted-foreground')}>
                 {language === 'fa' ? 'تأمین تجهیزات آزمایشگاهی و ابزار دقیق' : 'Lab Equipment & Precision Instruments'}
               </span>
             </div>
@@ -149,22 +160,22 @@ export const Header = () => {
 
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-2">
-            {menuItems.map(item => <div key={item.path} className="relative" onMouseEnter={() => (item.submenu || item.megaMenu) && setActiveMenu(item.label)} onMouseLeave={() => setActiveMenu(null)}>
-                <Link to={item.path} className={cn('relative px-3 py-2 rounded-md text-sm font-medium flex items-center gap-1', 'transition-all duration-300 ease-out', location.pathname === item.path ? 'text-white bg-white/10 font-semibold' : 'text-white/80 hover:text-white hover:bg-white/5')}>
+          <nav className="hidden lg:flex items-center gap-6">
+            {menuItems.map(item => <div key={item.id} className="relative" onMouseEnter={() => (item.submenu || item.megaMenu) && setActiveMenu(item.id)} onMouseLeave={() => setActiveMenu(null)}>
+                <Link to={item.path} className={cn('relative px-3 py-2 rounded-md text-sm font-medium flex items-center gap-1 transition-all duration-300 ease-out', location.pathname === item.path ? navActiveClass : navTextClass)}>
                   <span>{item.label}</span>
-                  {(item.submenu || item.megaMenu) && <ChevronDown className={cn('w-4 h-4 transition-transform', activeMenu === item.label && 'rotate-180')} />}
+                  {(item.submenu || item.megaMenu) && <ChevronDown className={cn('w-4 h-4 transition-transform', activeMenu === item.id && 'rotate-180')} />}
                 </Link>
 
                 {/* Regular Submenu */}
-                {item.submenu && activeMenu === item.label && <div className="absolute top-full left-0 mt-1 w-56 bg-card rounded-lg shadow-elegant-lg border overflow-hidden animate-fade-in">
+                {item.submenu && activeMenu === item.id && <div className="absolute top-full left-0 mt-2 w-56 bg-card rounded-lg shadow-elegant-lg border animate-fade-in">
                     {item.submenu.map(subItem => <Link key={subItem.path} to={subItem.path} className="block px-4 py-3 text-sm hover:bg-secondary transition-smooth">
                         {subItem.label}
                       </Link>)}
                   </div>}
 
                 {/* Products Mega Menu */}
-                {item.megaMenu === 'products' && activeMenu === item.label && <div className="absolute top-full left-1/2 -translate-x-1/2 mt-1 w-[800px] bg-card rounded-xl shadow-elegant-xl border animate-fade-in">
+                {item.megaMenu === 'products' && activeMenu === item.id && <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-[800px] bg-card rounded-xl shadow-elegant-xl border animate-fade-in">
                     <div className="p-6">
                       <div className="grid grid-cols-2 gap-6">
                         {productCategories.map(category => <div key={category.id} className="space-y-3">
@@ -202,7 +213,7 @@ export const Header = () => {
                   </div>}
 
                 {/* Industries Mega Menu */}
-                {item.megaMenu === 'industries' && activeMenu === item.label && <div className="absolute top-full left-1/2 -translate-x-1/2 mt-1 w-[600px] bg-card rounded-xl shadow-elegant-xl border animate-fade-in">
+                {item.megaMenu === 'industries' && activeMenu === item.id && <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-[600px] bg-card rounded-xl shadow-elegant-xl border animate-fade-in">
                     <div className="p-6">
                       <div className="grid grid-cols-2 gap-3">
                         {industries.map(industry => <Link key={industry.id} to={`/industries/${industry.slug}`} className="flex items-center gap-3 p-3 rounded-lg hover:bg-secondary/50 transition-smooth group">
@@ -223,14 +234,14 @@ export const Header = () => {
           <div className="flex items-center gap-1.5 md:gap-2 shrink-0">
             
 
-            <Button variant="ghost" size="icon" onClick={() => setLanguage(language === 'fa' ? 'en' : 'fa')} className="relative text-white hover:bg-white/10 w-9 h-9 md:w-10 md:h-10">
+            <Button variant="ghost" size="icon" onClick={() => setLanguage(language === 'fa' ? 'en' : 'fa')} className={cn('relative w-9 h-9 md:w-10 md:h-10', transparentHeader ? 'text-white hover:bg-white/10' : 'text-foreground hover:bg-secondary') }>
               <Globe className="w-4 h-4 md:w-5 md:h-5" />
               <span className="absolute -bottom-1 -right-1 text-[9px] md:text-[10px] font-bold bg-accent text-white rounded px-1">
                 {language.toUpperCase()}
               </span>
             </Button>
 
-            <Button variant="ghost" size="icon" className="relative text-white hover:bg-white/10 w-9 h-9 md:w-10 md:h-10" onClick={() => setIsOpen(true)}>
+            <Button variant="ghost" size="icon" className={cn('relative w-9 h-9 md:w-10 md:h-10', transparentHeader ? 'text-white hover:bg-white/10' : 'text-foreground hover:bg-secondary')} onClick={() => setIsOpen(true)}>
               <ShoppingCart className="w-4 h-4 md:w-5 md:h-5" />
               {items.length > 0 && <span className="absolute -top-1 -right-1 w-4 h-4 md:w-5 md:h-5 bg-accent text-white text-[10px] md:text-xs rounded-full flex items-center justify-center">
                   {items.length}
@@ -267,16 +278,16 @@ export const Header = () => {
               </div>
 
               <nav className="flex-1 overflow-y-auto p-4">
-                {menuItems.map(item => <div key={item.path} className="mb-2">
-                    {item.submenu || item.megaMenu ? <button onClick={() => setExpandedMobileSection(expandedMobileSection === item.label ? null : item.label)} className={cn('w-full flex items-center justify-between px-4 py-3 text-sm font-medium rounded-md transition-smooth', expandedMobileSection === item.label ? 'bg-primary/10 text-primary' : 'hover:bg-secondary')}>
+                {menuItems.map(item => <div key={item.id} className="mb-2">
+                    {item.submenu || item.megaMenu ? <button onClick={() => setExpandedMobileSection(expandedMobileSection === item.id ? null : item.id)} className={cn('w-full flex items-center justify-between px-4 py-3 text-sm font-medium rounded-md transition-smooth', expandedMobileSection === item.id ? 'bg-primary/10 text-primary' : 'hover:bg-secondary')}>
                         <span>{item.label}</span>
-                        <ChevronDown className={cn('w-4 h-4 transition-transform', expandedMobileSection === item.label && 'rotate-180')} />
+                        <ChevronDown className={cn('w-4 h-4 transition-transform', expandedMobileSection === item.id && 'rotate-180')} />
                       </button> : <Link to={item.path} className={cn('block px-4 py-3 text-sm font-medium rounded-md transition-smooth', location.pathname === item.path ? 'bg-primary/10 text-primary' : 'hover:bg-secondary')} onClick={() => setIsMobileMenuOpen(false)}>
                         {item.label}
                       </Link>}
 
                     {/* Mobile Products Submenu */}
-                    {item.megaMenu === 'products' && expandedMobileSection === item.label && <div className="mt-2 space-y-2 animate-accordion-down">
+                    {item.megaMenu === 'products' && expandedMobileSection === item.id && <div className="mt-2 space-y-2 animate-accordion-down">
                         {productCategories.map(category => <Link key={category.id} to={`/products?type=${category.type}`} className={cn('flex items-center gap-3 px-4 py-2 text-sm rounded-md hover:bg-secondary/50 transition-smooth', language === 'fa' ? 'pr-8' : 'pl-8')} onClick={() => setIsMobileMenuOpen(false)}>
                             {getCategoryIcon(category.type)}
                             <span>{language === 'fa' ? category.name : category.nameEn}</span>
@@ -287,7 +298,7 @@ export const Header = () => {
                       </div>}
 
                     {/* Mobile Industries Submenu */}
-                    {item.megaMenu === 'industries' && expandedMobileSection === item.label && <div className="mt-2 space-y-1 animate-accordion-down">
+                    {item.megaMenu === 'industries' && expandedMobileSection === item.id && <div className="mt-2 space-y-1 animate-accordion-down">
                         {industries.slice(0, 6).map(industry => <Link key={industry.id} to={`/industries/${industry.slug}`} className={cn('flex items-center gap-3 px-4 py-2 text-sm rounded-md hover:bg-secondary/50 transition-smooth', language === 'fa' ? 'pr-8' : 'pl-8')} onClick={() => setIsMobileMenuOpen(false)}>
                             <span>{industry.icon}</span>
                             <span>{language === 'fa' ? industry.name : industry.nameEn}</span>
@@ -295,7 +306,7 @@ export const Header = () => {
                       </div>}
 
                     {/* Mobile Regular Submenu */}
-                    {item.submenu && expandedMobileSection === item.label && <div className="mt-2 space-y-1 animate-accordion-down">
+                    {item.submenu && expandedMobileSection === item.id && <div className="mt-2 space-y-1 animate-accordion-down">
                         {item.submenu.map(subItem => <Link key={subItem.path} to={subItem.path} className={cn('block px-4 py-2 text-sm text-muted-foreground rounded-md hover:bg-secondary/50 hover:text-foreground transition-smooth', language === 'fa' ? 'pr-8' : 'pl-8')} onClick={() => setIsMobileMenuOpen(false)}>
                             {subItem.label}
                           </Link>)}

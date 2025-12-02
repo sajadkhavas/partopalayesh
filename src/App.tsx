@@ -10,7 +10,6 @@ import { RFQProvider } from "@/contexts/RFQContext";
 import { RFQDrawer } from "@/components/RFQDrawer";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
 import ContactFloat from "@/components/ContactFloat";
-import Preloader from "@/components/Preloader";
 import Index from "./pages/Index";
 import Products from "./pages/Products";
 import CategoryProducts from "./pages/CategoryProducts";
@@ -20,6 +19,7 @@ import Brands from "./pages/Brands";
 import Services from "./pages/Services";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
+import ThankYou from "./pages/ThankYou";
 import FAQ from "./pages/FAQ";
 import NotFound from "./pages/NotFound";
 
@@ -32,7 +32,6 @@ const App = () => {
         <LanguageProvider>
           <RFQProvider>
             <TooltipProvider>
-              <Preloader />
               <Toaster />
               <Sonner position="top-center" />
               <BrowserRouter>
@@ -51,6 +50,7 @@ const App = () => {
                   <Route path="/services/:type" element={<Services />} />
                   <Route path="/about" element={<About />} />
                   <Route path="/contact" element={<Contact />} />
+                  <Route path="/thank-you" element={<ThankYou />} />
                   <Route path="/resources/faq" element={<FAQ />} />
                   <Route path="/resources/blog" element={<FAQ />} />
                   <Route path="/resources/catalogs" element={<FAQ />} />
