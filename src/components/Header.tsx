@@ -92,9 +92,9 @@ export const Header = () => {
     label: t('nav.about'),
     path: '/about'
   }];
-  return <header className={cn('fixed top-0 left-0 right-0 z-50 transition-smooth', isScrolled ? 'bg-[hsl(210,100%,15%)] shadow-elegant-lg' : 'bg-[hsl(210,100%,18%)]/95 backdrop-blur-md')}>
+  return <header className={cn('fixed top-0 left-0 right-0 z-50 transition-smooth', isScrolled ? 'bg-navy shadow-elegant-lg' : 'bg-navy-light/95 backdrop-blur-md')}>
       {/* Top Bar with Search & Stats */}
-      <div className="bg-[hsl(210,100%,12%)] border-b border-white/10">
+      <div className="bg-navy-dark border-b border-teal/20">
         <div className="container-wide">
           <div className="flex items-center justify-between gap-6 h-12 py-2">
             {/* Search Bar */}
@@ -104,7 +104,7 @@ export const Header = () => {
                 <input 
                   type="text" 
                   placeholder={language === 'fa' ? 'جستجوی محصولات، برند، مدل...' : 'Search products, brands, models...'} 
-                  className="w-full h-9 pl-10 pr-4 bg-white/10 border border-white/20 rounded-lg text-sm text-white placeholder:text-white/40 focus:bg-white/15 focus:border-white/30 focus:outline-none transition-all" 
+                  className="w-full h-9 pl-10 pr-4 bg-white/10 border border-teal-light/30 rounded-lg text-sm text-white placeholder:text-white/50 focus:bg-white/15 focus:border-teal-light/50 focus:outline-none transition-all" 
                   onClick={() => setIsSearchOpen(true)} 
                   readOnly 
                 />
@@ -238,7 +238,7 @@ export const Header = () => {
             </Button>
 
             <Link to="/contact" className="hidden md:block">
-              <Button className="bg-success hover:bg-success/90 text-white shadow-lg">
+              <Button className="bg-teal hover:bg-teal-light text-white font-bold shadow-lg hover:shadow-glow transition-all">
                 {language === 'fa' ? 'درخواست استعلام' : 'Request Quote'}
               </Button>
             </Link>
