@@ -94,8 +94,8 @@ export const Header = () => {
   }];
   return <header className={cn('fixed top-0 left-0 right-0 z-50 transition-smooth', isScrolled ? 'bg-navy shadow-elegant-lg' : 'bg-navy-light/95 backdrop-blur-md')}>
       {/* Top Bar with Search & Stats */}
-      <div className="bg-navy-dark border-b border-teal/20 overflow-hidden">
-        <div className="container-wide">
+      <div className="bg-navy-dark border-b border-teal/20">
+        <div className="container-wide overflow-hidden">
           <div className="flex items-center justify-between gap-3 md:gap-6 h-12 py-2">
             {/* Search Bar */}
             <div className="flex-1 max-w-2xl min-w-0">
@@ -130,7 +130,7 @@ export const Header = () => {
         </div>
       </div>
 
-      <div className="container-wide overflow-hidden">
+      <div className="container-wide">
         <div className="flex items-center justify-between h-16 lg:h-18 gap-2">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 md:gap-3 transition-smooth hover:opacity-90 shrink-0">
