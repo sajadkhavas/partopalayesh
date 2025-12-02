@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { Package, Wrench, Settings, MessageSquare, ArrowRight } from 'lucide-react';
@@ -6,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator, BreadcrumbPage } from '@/components/ui/breadcrumb';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { cn } from '@/lib/utils';
+import { SITE_URL } from '@/config';
 
 export default function Services() {
   const { language } = useLanguage();
@@ -39,6 +41,47 @@ export default function Services() {
 
   return (
     <div className="min-h-screen bg-background" dir={language === 'fa' ? 'rtl' : 'ltr'}>
+      <Helmet>
+        <title>{language === 'fa' ? 'خدمات پتروپالایش کو | نصب و پشتیبانی' : 'PetroPalayeshco Services | Supply & Support'}</title>
+        <meta
+          name="description"
+          content={language === 'fa'
+            ? 'خدمات واردات، نصب، تعمیر و مشاوره فنی تجهیزات آزمایشگاهی و ابزار دقیق برای صنایع نفت و گاز.'
+            : 'Import, installation, maintenance, and technical consulting for laboratory and instrumentation equipment in oil and gas.'}
+        />
+        <link rel="canonical" href={`${SITE_URL}/services`} />
+        <meta property="og:title" content={language === 'fa' ? 'خدمات پتروپالایش کو' : 'PetroPalayeshco Services'} />
+        <meta property="og:description" content={language === 'fa'
+          ? 'پوشش کامل خدمات از تأمین تا پشتیبانی تجهیزات آزمایشگاهی و ابزار دقیق.'
+          : 'Full-service coverage from supply to support for laboratory equipment and instrumentation.'} />
+        <meta property="og:url" content={`${SITE_URL}/services`} />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content={`${SITE_URL}/precision-instruments.jpg`} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={language === 'fa' ? 'خدمات پتروپالایش کو' : 'PetroPalayeshco Services'} />
+        <meta name="twitter:description" content={language === 'fa'
+          ? 'پوشش کامل خدمات از تأمین تا پشتیبانی تجهیزات آزمایشگاهی و ابزار دقیق.'
+          : 'Full-service coverage from supply to support for laboratory equipment and instrumentation.'} />
+        <meta name="twitter:image" content={`${SITE_URL}/precision-instruments.jpg`} />
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            "name": "Services",
+            "itemListElement": services.map((service, index) => ({
+              "@type": "Service",
+              "name": service.title.en,
+              "description": service.description.en,
+              "position": index + 1,
+              "provider": {
+                "@type": "Organization",
+                "name": "PetroPalayeshco",
+                "url": SITE_URL
+              }
+            }))
+          })}
+        </script>
+      </Helmet>
       <Header />
       
       <main className="pt-20 lg:pt-24">

@@ -16,6 +16,8 @@ export const ProductCard = ({ product, viewMode = 'grid' }: ProductCardProps) =>
   const { language } = useLanguage();
   const isInRFQ = items.some(item => item.id === product.id);
 
+  const slug = product.slug;
+
   const handleAddToRFQ = (e: React.MouseEvent) => {
     e.preventDefault();
     if (!isInRFQ) {
@@ -31,7 +33,7 @@ export const ProductCard = ({ product, viewMode = 'grid' }: ProductCardProps) =>
   if (viewMode === 'list') {
     return (
       <Link
-        to={`/products/${product.id}`}
+        to={`/products/${slug}`}
         className="group block bg-card border rounded-lg p-6 hover:shadow-elegant transition-smooth"
       >
         <div className="flex gap-6">
@@ -83,7 +85,7 @@ export const ProductCard = ({ product, viewMode = 'grid' }: ProductCardProps) =>
       )}
 
       {/* Clickable Image Container with Gradient Overlay */}
-      <Link to={`/products/${product.id}`} className="block">
+      <Link to={`/products/${slug}`} className="block">
         <div className="relative aspect-square overflow-hidden bg-gradient-subtle">
           <div className="absolute inset-0 bg-gradient-to-t from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-smooth" />
           <img
@@ -131,7 +133,7 @@ export const ProductCard = ({ product, viewMode = 'grid' }: ProductCardProps) =>
         </div>
 
         {/* Product Title - Clickable */}
-        <Link to={`/products/${product.id}`}>
+        <Link to={`/products/${slug}`}>
           <h3 className="font-bold text-base leading-tight min-h-[3rem] group-hover:text-accent transition-smooth line-clamp-2 cursor-pointer">
             {language === 'fa' ? product.name : product.nameEn}
           </h3>
@@ -159,7 +161,7 @@ export const ProductCard = ({ product, viewMode = 'grid' }: ProductCardProps) =>
               {isInRFQ ? (language === 'fa' ? 'در استعلام' : 'In RFQ') : (language === 'fa' ? 'استعلام' : 'RFQ')}
             </span>
           </Button>
-          <Link to={`/products/${product.id}`} className="flex-1">
+          <Link to={`/products/${slug}`} className="flex-1">
             <Button 
               size="sm" 
               className="w-full bg-gradient-accent hover:brightness-110 text-white shadow-sm hover:shadow-glow transition-all"

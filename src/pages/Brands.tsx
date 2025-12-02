@@ -8,6 +8,7 @@ import { Badge } from '@/components/ui/badge';
 import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator, BreadcrumbPage } from '@/components/ui/breadcrumb';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { brands } from '@/data/industries';
+import { SITE_URL } from '@/config';
 
 export default function Brands() {
   const { language } = useLanguage();
@@ -28,6 +29,20 @@ export default function Brands() {
               : 'Authorized distributor of leading global brands including Emerson, Endress+Hauser, Yokogawa, Anton Paar and more'
           }
         />
+        <link rel="canonical" href={`${SITE_URL}/brands`} />
+        <meta property="og:title" content={language === 'fa' ? 'برندهای پتروپالایش' : 'PetroPalayeshco Brands'} />
+        <meta property="og:description" content={language === 'fa'
+          ? 'شرکای تجاری و برندهای منتخب تجهیزات آزمایشگاهی و ابزار دقیق.'
+          : 'Trusted commercial partners and leading brands for lab equipment and instrumentation.'} />
+        <meta property="og:url" content={`${SITE_URL}/brands`} />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content={`${SITE_URL}/analytical-equipment.jpg`} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={language === 'fa' ? 'برندهای پتروپالایش' : 'PetroPalayeshco Brands'} />
+        <meta name="twitter:description" content={language === 'fa'
+          ? 'شرکای تجاری و برندهای منتخب تجهیزات آزمایشگاهی و ابزار دقیق.'
+          : 'Trusted commercial partners and leading brands for lab equipment and instrumentation.'} />
+        <meta name="twitter:image" content={`${SITE_URL}/analytical-equipment.jpg`} />
       </Helmet>
 
       <Header />

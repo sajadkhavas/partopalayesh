@@ -1,7 +1,14 @@
 // src/hooks/useProducts.ts
 import { useQuery } from "@tanstack/react-query";
 import { fetchProductsBySlug } from "@/strapi";
-import { products as localProducts } from "@/data/products";
+import { categories, products as localProducts, Product, subcategories } from "@/data/products";
+
+const normalizeCategoryMatch = (product: Product) => {
+  const match = categories.find(
+    (c) => c.name === product.category || c.nameEn === product.categoryEn
+  );
+  return match?.id || "";
+};
 
 export function useProducts(category = '', subcategory = '') {
   const q = useQuery({
@@ -14,27 +21,28 @@ export function useProducts(category = '', subcategory = '') {
   // Filter local products based on category/subcategory
   const getFilteredLocalProducts = () => {
     let filtered = localProducts;
-    
-    if (category) {
-      filtered = filtered.filter(p => {
-        const cat = p.category.toLowerCase();
-        return cat.includes(category.toLowerCase()) || 
-               category === 'analytical' && cat.includes('آنالیز') ||
-               category === 'precision' && cat.includes('ابزار دقیق') ||
-               category === 'sample-prep' && cat.includes('آماده') ||
-               category === 'petroleum' && cat.includes('نفت');
+
+    if (category && category !== 'all') {
+      filtered = filtered.filter((p) => {
+        const categoryId = normalizeCategoryMatch(p);
+        return categoryId === category;
       });
     }
-    
+
     if (subcategory && subcategory !== 'all') {
-      filtered = filtered.filter(p => {
+      filtered = filtered.filter((p) => {
         const sub = (p.subcategory || '').toLowerCase();
         const subEn = (p.subcategoryEn || '').toLowerCase();
-        return sub.includes(subcategory.toLowerCase()) || 
-               subEn.includes(subcategory.toLowerCase());
+        const normalized = subcategories.find((s) => s.id === subcategory);
+        return (
+          sub.includes(subcategory.toLowerCase()) ||
+          subEn.includes(subcategory.toLowerCase()) ||
+          (!!normalized &&
+            (normalized.name === p.subcategory || normalized.nameEn === p.subcategoryEn))
+        );
       });
     }
-    
+
     return filtered;
   };
   
