@@ -93,22 +93,39 @@ export const Header = () => {
     path: '/about'
   }];
   return <header className={cn('fixed top-0 left-0 right-0 z-50 transition-smooth', isScrolled ? 'bg-[hsl(210,100%,15%)] shadow-elegant-lg' : 'bg-[hsl(210,100%,18%)]/95 backdrop-blur-md')}>
-      {/* Top Bar with Stats */}
+      {/* Top Bar with Search & Stats */}
       <div className="bg-[hsl(210,100%,12%)] border-b border-white/10">
         <div className="container-wide">
-          <div className="flex items-center justify-end gap-6 h-8 text-xs text-white/70">
-            <span className="flex items-center gap-2">
-              <span className="font-bold text-white">+20</span>
-              {language === 'fa' ? 'سال تجربه' : 'years experience'}
-            </span>
-            <span className="flex items-center gap-2">
-              <span className="font-bold text-white">+500</span>
-              {language === 'fa' ? 'مشتری' : 'clients'}
-            </span>
-            <span className="flex items-center gap-2">
-              <span className="font-bold text-white">+1000</span>
-              {language === 'fa' ? 'پروژه موفق' : 'successful projects'}
-            </span>
+          <div className="flex items-center justify-between gap-6 h-12 py-2">
+            {/* Search Bar */}
+            <div className="flex-1 max-w-2xl">
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40" />
+                <input 
+                  type="text" 
+                  placeholder={language === 'fa' ? 'جستجوی محصولات، برند، مدل...' : 'Search products, brands, models...'} 
+                  className="w-full h-9 pl-10 pr-4 bg-white/10 border border-white/20 rounded-lg text-sm text-white placeholder:text-white/40 focus:bg-white/15 focus:border-white/30 focus:outline-none transition-all" 
+                  onClick={() => setIsSearchOpen(true)} 
+                  readOnly 
+                />
+              </div>
+            </div>
+
+            {/* Stats */}
+            <div className="hidden md:flex items-center gap-6 text-xs text-white/70">
+              <span className="flex items-center gap-2">
+                <span className="font-bold text-white">+20</span>
+                {language === 'fa' ? 'سال تجربه' : 'years experience'}
+              </span>
+              <span className="flex items-center gap-2">
+                <span className="font-bold text-white">+500</span>
+                {language === 'fa' ? 'مشتری' : 'clients'}
+              </span>
+              <span className="flex items-center gap-2">
+                <span className="font-bold text-white">+1000</span>
+                {language === 'fa' ? 'پروژه موفق' : 'successful projects'}
+              </span>
+            </div>
           </div>
         </div>
       </div>
@@ -130,13 +147,6 @@ export const Header = () => {
             </div>
           </Link>
 
-          {/* Search Bar - Center */}
-          <div className="hidden lg:flex flex-1 max-w-xl mx-8">
-            <div className="relative w-full">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-white/40" />
-              <input type="text" placeholder={language === 'fa' ? 'جستجوی محصولات، برند، مدل...' : 'Search products, brands, models...'} className="w-full h-10 pl-10 pr-4 bg-white/10 border border-white/20 rounded-lg text-white placeholder:text-white/40 focus:bg-white/15 focus:border-white/30 focus:outline-none transition-all" onClick={() => setIsSearchOpen(true)} readOnly />
-            </div>
-          </div>
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center gap-2">
