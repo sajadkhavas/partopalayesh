@@ -31,6 +31,16 @@ export default {
           foreground: "hsl(var(--secondary-foreground))",
           glow: "hsl(var(--secondary-glow))",
         },
+        navy: {
+          DEFAULT: "hsl(210, 100%, 12%)",
+          dark: "hsl(210, 100%, 8%)",
+          light: "hsl(210, 100%, 18%)",
+        },
+        teal: {
+          DEFAULT: "hsl(195, 100%, 50%)",
+          light: "hsl(195, 100%, 65%)",
+          dark: "hsl(195, 100%, 35%)",
+        },
         neutral: {
           DEFAULT: "hsl(var(--neutral))",
           light: "hsl(var(--neutral-light))",
@@ -92,7 +102,8 @@ export default {
         'gradient-card': 'var(--gradient-card)',
         'gradient-accent': 'var(--gradient-accent)',
         'gradient-subtle': 'var(--gradient-subtle)',
-        'gradient-blue-orange': 'var(--gradient-blue-orange)',
+        'gradient-navy-teal': 'var(--gradient-navy-teal)',
+        'gradient-glass': 'var(--gradient-glass)',
       },
       boxShadow: {
         'elegant-sm': 'var(--shadow-sm)',
@@ -100,7 +111,9 @@ export default {
         'elegant-lg': 'var(--shadow-lg)',
         'elegant-xl': 'var(--shadow-xl)',
         'glow': 'var(--shadow-glow)',
-        'glow-accent': 'var(--shadow-glow-accent)',
+        'glow-navy': 'var(--shadow-glow-navy)',
+        'glass': 'var(--shadow-glass)',
+        'premium': 'var(--shadow-premium)',
       },
       screens: {
         'xs': '320px',

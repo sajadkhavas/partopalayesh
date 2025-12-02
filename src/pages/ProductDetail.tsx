@@ -160,29 +160,33 @@ export default function ProductDetail() {
               <>
                 {/* Hero Grid */}
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
-                  {/* Image Gallery */}
+                  {/* Image Gallery with Zoom */}
                   <div className="space-y-4">
-                    <div className="relative aspect-square rounded-2xl overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900 shadow-lg">
+                    <div className="relative aspect-square rounded-2xl overflow-hidden bg-gradient-to-br from-muted to-background shadow-xl border-2 border-teal/20 group">
                       <img 
                         src={product.image} 
                         alt={localizedName}
-                        className="w-full h-full object-contain p-8 transition-transform duration-300 hover:scale-105"
+                        className="w-full h-full object-contain p-8 transition-all duration-500 group-hover:scale-110 cursor-zoom-in"
                       />
+                      {/* Glassmorphic Badge */}
+                      <div className="absolute top-4 right-4 bg-teal/20 backdrop-blur-md border border-teal-light/40 text-white px-4 py-2 rounded-full text-xs font-bold shadow-glass">
+                        ✦ {language === 'fa' ? 'کیفیت پریمیوم' : 'Premium Quality'}
+                      </div>
                     </div>
-                    {/* Thumbnail Grid - simulate multiple images */}
-                    <div className="grid grid-cols-4 gap-2">
+                    {/* Thumbnail Grid - Premium Style */}
+                    <div className="grid grid-cols-4 gap-3">
                       {[product.image, product.image, product.image, product.image].map((img, idx) => (
                         <button
                           key={idx}
                           onClick={() => setSelectedImage(idx)}
                           className={cn(
-                            "aspect-square rounded-lg overflow-hidden border-2 transition-all duration-300 hover:shadow-md",
+                            "aspect-square rounded-xl overflow-hidden border-2 transition-all duration-300 hover:shadow-lg bg-gradient-to-br from-muted to-background",
                             selectedImage === idx 
-                              ? "border-primary shadow-lg scale-105" 
-                              : "border-transparent hover:border-primary/50"
+                              ? "border-teal shadow-glow scale-105 ring-2 ring-teal/50" 
+                              : "border-border hover:border-teal/50 hover:scale-102"
                           )}
                         >
-                          <img src={img} className="w-full h-full object-cover" alt={`${localizedName} view ${idx + 1}`} />
+                          <img src={img} className="w-full h-full object-cover p-2" alt={`${localizedName} view ${idx + 1}`} />
                         </button>
                       ))}
                     </div>
@@ -190,41 +194,41 @@ export default function ProductDetail() {
 
                   {/* Product Info */}
                   <div className="space-y-6">
-                    {/* Title & Model */}
+                    {/* Title & Model - Premium Typography */}
                     <div>
-                      <h1 className="text-4xl lg:text-5xl font-bold mb-3 bg-gradient-to-br from-foreground to-foreground/70 bg-clip-text text-transparent">
+                      <h1 className="text-4xl lg:text-5xl font-extrabold mb-3 bg-gradient-to-br from-navy via-teal to-navy bg-clip-text text-transparent leading-tight">
                         {localizedName}
                       </h1>
-                      <p className="text-lg text-muted-foreground flex items-center gap-2">
-                        <span>{language === 'fa' ? 'مدل' : 'Model'}: {product.id.toUpperCase()}</span>
+                      <p className="text-lg text-muted-foreground flex items-center gap-3 font-medium">
+                        <span className="px-3 py-1 bg-teal/10 text-teal rounded-lg">{language === 'fa' ? 'مدل' : 'Model'}: {product.id.toUpperCase()}</span>
                         <span>•</span>
-                        <span>SKU: {product.id}</span>
+                        <span className="px-3 py-1 bg-navy/10 text-navy rounded-lg">SKU: {product.id}</span>
                       </p>
                     </div>
 
-                    {/* Badges */}
-                    <div className="flex flex-wrap gap-2">
+                    {/* Badges - Premium Style */}
+                    <div className="flex flex-wrap gap-3">
                       <span className={cn(
-                        "px-3 py-1.5 rounded-full text-sm font-semibold inline-flex items-center gap-1.5 shadow-sm",
+                        "px-4 py-2 rounded-xl text-sm font-bold inline-flex items-center gap-2 shadow-md border-2",
                         product.inStock 
-                          ? "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400" 
-                          : "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400"
+                          ? "bg-success/10 text-success border-success/30" 
+                          : "bg-destructive/10 text-destructive border-destructive/30"
                       )}>
-                        <Package className="w-3.5 h-3.5" />
+                        <Package className="w-4 h-4" />
                         {product.inStock 
                           ? (language === 'fa' ? 'موجود در انبار' : 'In Stock')
                           : (language === 'fa' ? 'ناموجود' : 'Out of Stock')
                         }
                       </span>
                       {product.standards.slice(0, 2).map((standard) => (
-                        <span key={standard} className="px-3 py-1.5 bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400 rounded-full text-sm font-semibold inline-flex items-center gap-1.5 shadow-sm">
-                          <Award className="w-3.5 h-3.5" />
+                        <span key={standard} className="px-4 py-2 bg-teal/10 text-teal border-2 border-teal/30 rounded-xl text-sm font-bold inline-flex items-center gap-2 shadow-md">
+                          <Award className="w-4 h-4" />
                           {standard}
                         </span>
                       ))}
-                      <span className="px-3 py-1.5 bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-400 rounded-full text-sm font-semibold inline-flex items-center gap-1.5 shadow-sm">
-                        <Shield className="w-3.5 h-3.5" />
-                        {language === 'fa' ? 'گارانتی اصالت' : 'Authenticity Guarantee'}
+                      <span className="px-4 py-2 bg-navy/10 text-navy border-2 border-navy/30 rounded-xl text-sm font-bold inline-flex items-center gap-2 shadow-md">
+                        <Shield className="w-4 h-4" />
+                        {language === 'fa' ? 'گارانتی اصالت' : 'Authenticity'}
                       </span>
                     </div>
 
@@ -233,14 +237,14 @@ export default function ProductDetail() {
                       {localizedDescription}
                     </p>
 
-                    {/* CTAs */}
+                    {/* CTAs - Premium Glassmorphic Buttons */}
                     <div className="flex flex-col sm:flex-row items-center gap-4 pt-4">
                       <Button
                         size="lg"
                         className={cn(
-                          "flex-1 w-full sm:w-auto text-lg font-semibold shadow-xl transition-all duration-300",
-                          "bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70",
-                          "hover:shadow-2xl hover:scale-105"
+                          "flex-1 w-full sm:w-auto text-lg font-bold shadow-xl transition-all duration-300",
+                          "bg-gradient-to-r from-teal to-teal-light hover:from-teal-light hover:to-teal",
+                          "hover:shadow-glow hover:scale-105 rounded-xl"
                         )}
                         onClick={handleAddToRFQ}
                         disabled={isInRFQ}
@@ -260,38 +264,44 @@ export default function ProductDetail() {
                       <Button 
                         size="lg" 
                         variant="outline" 
-                        className="flex-1 w-full sm:w-auto text-lg font-semibold hover:bg-primary/5 transition-all duration-300"
+                        className="flex-1 w-full sm:w-auto text-lg font-bold border-2 border-teal/30 hover:bg-teal/10 hover:border-teal transition-all duration-300 rounded-xl"
                       >
                         <Download className="w-5 h-5" />
                         {language === 'fa' ? 'دانلود کاتالوگ' : 'Download'}
                       </Button>
                     </div>
 
-                    {/* Quick Specs Grid */}
+                    {/* Quick Specs Grid - Premium Glassmorphic Style */}
                     {Object.keys(product.specs).length > 0 && (
-                      <div className="grid grid-cols-2 gap-4 p-6 bg-gradient-to-br from-muted/50 to-muted/30 rounded-xl border shadow-sm">
+                      <div className="grid grid-cols-2 gap-4 p-6 bg-gradient-to-br from-navy/5 via-teal/5 to-navy/5 rounded-2xl border-2 border-teal/20 shadow-glass backdrop-blur-sm">
                         {Object.entries(product.specs).slice(0, 4).map(([key, value]) => (
-                          <div key={key} className="space-y-1">
-                            <p className="text-sm text-muted-foreground font-medium">{key}</p>
-                            <p className="font-bold text-lg">{String(value)}</p>
+                          <div key={key} className="space-y-1 p-3 bg-white/50 dark:bg-navy/20 rounded-xl">
+                            <p className="text-xs text-muted-foreground font-bold uppercase tracking-wide">{key}</p>
+                            <p className="font-extrabold text-lg text-navy dark:text-teal">{String(value)}</p>
                           </div>
                         ))}
                       </div>
                     )}
 
-                    {/* Trust Badges */}
-                    <div className="flex flex-wrap items-center gap-6 pt-4 border-t">
-                      <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                        <Truck className="w-5 h-5 text-primary" />
-                        <span className="font-medium">{language === 'fa' ? 'ارسال سریع' : 'Fast Shipping'}</span>
+                    {/* Trust Badges - Premium Icons */}
+                    <div className="flex flex-wrap items-center gap-6 pt-4 border-t border-teal/20">
+                      <div className="flex items-center gap-3 text-sm">
+                        <div className="w-10 h-10 rounded-full bg-teal/10 flex items-center justify-center">
+                          <Truck className="w-5 h-5 text-teal" />
+                        </div>
+                        <span className="font-bold text-foreground">{language === 'fa' ? 'ارسال سریع' : 'Fast Shipping'}</span>
                       </div>
-                      <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                        <Shield className="w-5 h-5 text-primary" />
-                        <span className="font-medium">{language === 'fa' ? 'پشتیبانی فنی' : 'Technical Support'}</span>
+                      <div className="flex items-center gap-3 text-sm">
+                        <div className="w-10 h-10 rounded-full bg-navy/10 flex items-center justify-center">
+                          <Shield className="w-5 h-5 text-navy" />
+                        </div>
+                        <span className="font-bold text-foreground">{language === 'fa' ? 'پشتیبانی فنی' : 'Tech Support'}</span>
                       </div>
-                      <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                        <Award className="w-5 h-5 text-primary" />
-                        <span className="font-medium">{language === 'fa' ? 'کیفیت تضمینی' : 'Quality Assured'}</span>
+                      <div className="flex items-center gap-3 text-sm">
+                        <div className="w-10 h-10 rounded-full bg-teal/10 flex items-center justify-center">
+                          <Award className="w-5 h-5 text-teal" />
+                        </div>
+                        <span className="font-bold text-foreground">{language === 'fa' ? 'کیفیت تضمینی' : 'Quality Assured'}</span>
                       </div>
                     </div>
                   </div>
