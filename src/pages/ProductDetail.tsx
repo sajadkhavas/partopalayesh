@@ -27,18 +27,26 @@ export default function ProductDetail() {
   const [selectedImage, setSelectedImage] = useState(0);
   const galleryImages = product ? [product.image] : [];
 
+  const normalizedProducts = useMemo(() => (Array.isArray(allProducts) ? allProducts : []), [allProducts]);
+
   const relatedProducts = useMemo(() => {
     if (!product) return [];
-    return allProducts
-      .filter(p => p.category === product.category && p.id !== product.id)
+    return normalizedProducts
+      .filter((p) => p.category === product.category && p.id !== product.id)
       .slice(0, 4);
-  }, [allProducts, product]);
+  }, [normalizedProducts, product]);
 
   if (!slug) {
     return <Navigate to="/products" replace />;
   }
 
-  const isInRFQ = product ? items.some(item => item.id === product.id) : false;
+  const isInRFQ = product ? items.some((item) => item.id === product.id) : false;
+
+  const metaImage = product
+    ? product.image.startsWith('http')
+      ? product.image
+      : `${SITE_URL}${product.image}`
+    : `${SITE_URL}/analytical-equipment.jpg`;
 
   const metaImage = product
     ? product.image.startsWith('http')
@@ -47,7 +55,7 @@ export default function ProductDetail() {
     : `${SITE_URL}/analytical-equipment.jpg`;
 
   const handleAddToRFQ = () => {
-     if (!product) return;
+    if (!product) return;
     addItem({
       id: product.id,
       name: language === 'fa' ? product.name : product.nameEn,
@@ -81,31 +89,34 @@ export default function ProductDetail() {
       "priceValidUntil": "2025-12-31"
     }
   } : null;
-
-
   return (
     <div className="min-h-screen bg-background" dir={language === 'fa' ? 'rtl' : 'ltr'}>
-      {product && (
-        <Helmet>
-          <title>{`${localizedName} | ${language === 'fa' ? 'پتروپالایش کو' : 'PetroPalayesh Co.'}`}</title>
-          <meta name="description" content={localizedDescription.substring(0, 160)} />
-          <link rel="canonical" href={`${SITE_URL}/products/${product.slug || product.id}`} />
-          <meta property="og:title" content={localizedName} />
-          <meta property="og:description" content={localizedDescription.substring(0, 160)} />
-          <meta property="og:url" content={`${SITE_URL}/products/${product.slug || product.id}`} />
-          <meta property="og:image" content={metaImage} />
-          <meta property="og:type" content="product" />
-          <meta name="twitter:card" content="summary_large_image" />
-          <meta name="twitter:title" content={localizedName} />
-          <meta name="twitter:description" content={localizedDescription.substring(0, 160)} />
-          <meta name="twitter:image" content={metaImage} />
-          {productJsonLd && (
-            <script type="application/ld+json">
-              {JSON.stringify(productJsonLd)}
-            </script>
-          )}
-        </Helmet>
-      )}
+      <Helmet>
+        <title>{product ? `${localizedName} | ${language === 'fa' ? 'پتروپالایش کو' : 'PetroPalayesh Co.'}` : language === 'fa' ? 'محصول یافت نشد | پتروپالایش کو' : 'Product not found | PetroPalayesh Co.'}</title>
+        <meta
+          name="description"
+          content={product
+            ? localizedDescription.substring(0, 160)
+            : language === 'fa'
+              ? 'محصول درخواستی در دسترس نیست یا حذف شده است.'
+              : 'The requested product is unavailable or has been removed.'}
+        />
+        <link rel="canonical" href={`${SITE_URL}/products/${product?.slug || product?.id || ''}`} />
+        <meta property="og:title" content={product ? localizedName : language === 'fa' ? 'محصول یافت نشد' : 'Product not found'} />
+        <meta property="og:description" content={product ? localizedDescription.substring(0, 160) : language === 'fa' ? 'این محصول در حال حاضر موجود نیست.' : 'This product is currently unavailable.'} />
+        <meta property="og:url" content={`${SITE_URL}/products/${product?.slug || product?.id || ''}`} />
+        <meta property="og:image" content={metaImage} />
+        <meta property="og:type" content="product" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={product ? localizedName : language === 'fa' ? 'محصول یافت نشد' : 'Product not found'} />
+        <meta name="twitter:description" content={product ? localizedDescription.substring(0, 160) : language === 'fa' ? 'این محصول در حال حاضر موجود نیست.' : 'This product is currently unavailable.'} />
+        <meta name="twitter:image" content={metaImage} />
+        {productJsonLd && (
+          <script type="application/ld+json">
+            {JSON.stringify(productJsonLd)}
+          </script>
+        )}
+      </Helmet>
       <Header />
       
       <main className="pt-20 lg:pt-24">
