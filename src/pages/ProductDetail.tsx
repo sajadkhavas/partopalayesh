@@ -15,35 +15,41 @@ import { useProducts } from '@/hooks/useProducts';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Skeleton } from '@/components/ui/skeleton';
 import { cn } from '@/lib/utils';
+import { SITE_URL } from '@/config';
 
 
 export default function ProductDetail() {
-  const { id } = useParams();
+  const { slug } = useParams();
   const { language } = useLanguage();
   const { items, addItem } = useRFQ();
-  const { data: product, isLoading, error } = useProduct(id);
+  const { data: product, isLoading, error } = useProduct(slug);
   const { data: allProducts } = useProducts();
   const [selectedImage, setSelectedImage] = useState(0);
+  const galleryImages = product ? [product.image] : [];
+
+  const normalizedProducts = useMemo(() => (Array.isArray(allProducts) ? allProducts : []), [allProducts]);
 
   const relatedProducts = useMemo(() => {
     if (!product) return [];
-    return allProducts
-      .filter(p => p.category === product.category && p.id !== product.id)
+    return normalizedProducts
+      .filter((p) => p.category === product.category && p.id !== product.id)
       .slice(0, 4);
-  }, [allProducts, product]);
+  }, [normalizedProducts, product]);
 
- if (!id) {
+  if (!slug) {
     return <Navigate to="/products" replace />;
   }
 
- if (!isLoading && !product) {
-    return <Navigate to="/products" replace />;
-   }
+  const isInRFQ = product ? items.some((item) => item.id === product.id) : false;
 
-  const isInRFQ = product ? items.some(item => item.id === product.id) : false;
+  const metaImage = product
+    ? product.image.startsWith('http')
+      ? product.image
+      : `${SITE_URL}${product.image}`
+    : `${SITE_URL}/analytical-equipment.jpg`;
 
   const handleAddToRFQ = () => {
-     if (!product) return;
+    if (!product) return;
     addItem({
       id: product.id,
       name: language === 'fa' ? product.name : product.nameEn,
@@ -61,8 +67,9 @@ export default function ProductDetail() {
     "@type": "Product",
     "name": localizedName,
     "description": localizedDescription,
+    "sku": product.id,
     "category": localizedCategory,
-    "image": product.image,
+    "image": [metaImage],
     "brand": {
       "@type": "Brand",
       "name": "PetroPalayesh Co."
@@ -70,30 +77,40 @@ export default function ProductDetail() {
     "offers": {
       "@type": "Offer",
       "availability": product.inStock ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
-      "priceCurrency": "IRR"
+      "priceCurrency": "IRR",
+      "price": "0",
+      "url": `${SITE_URL}/products/${product.slug || product.id}`,
+      "priceValidUntil": "2025-12-31"
     }
   } : null;
-
-
   return (
     <div className="min-h-screen bg-background" dir={language === 'fa' ? 'rtl' : 'ltr'}>
-      {product && (
-        <Helmet>
-          <title>{`${localizedName} | ${language === 'fa' ? 'پتروپالایش کو' : 'PetroPalayesh Co.'}`}</title>
-          <meta name="description" content={localizedDescription.substring(0, 160)} />
-          <link rel="canonical" href={`https://YOURDOMAIN.com/products/${product.id}`} />
-          <meta property="og:title" content={localizedName} />
-          <meta property="og:description" content={localizedDescription.substring(0, 160)} />
-          <meta property="og:url" content={`https://YOURDOMAIN.com/products/${product.id}`} />
-          <meta property="og:image" content={product.image} />
-          <meta property="og:type" content="product" />
-          {productJsonLd && (
-            <script type="application/ld+json">
-              {JSON.stringify(productJsonLd)}
-            </script>
-          )}
-        </Helmet>
-      )}
+      <Helmet>
+        <title>{product ? `${localizedName} | ${language === 'fa' ? 'پتروپالایش کو' : 'PetroPalayesh Co.'}` : language === 'fa' ? 'محصول یافت نشد | پتروپالایش کو' : 'Product not found | PetroPalayesh Co.'}</title>
+        <meta
+          name="description"
+          content={product
+            ? localizedDescription.substring(0, 160)
+            : language === 'fa'
+              ? 'محصول درخواستی در دسترس نیست یا حذف شده است.'
+              : 'The requested product is unavailable or has been removed.'}
+        />
+        <link rel="canonical" href={`${SITE_URL}/products/${product?.slug || product?.id || ''}`} />
+        <meta property="og:title" content={product ? localizedName : language === 'fa' ? 'محصول یافت نشد' : 'Product not found'} />
+        <meta property="og:description" content={product ? localizedDescription.substring(0, 160) : language === 'fa' ? 'این محصول در حال حاضر موجود نیست.' : 'This product is currently unavailable.'} />
+        <meta property="og:url" content={`${SITE_URL}/products/${product?.slug || product?.id || ''}`} />
+        <meta property="og:image" content={metaImage} />
+        <meta property="og:type" content="product" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={product ? localizedName : language === 'fa' ? 'محصول یافت نشد' : 'Product not found'} />
+        <meta name="twitter:description" content={product ? localizedDescription.substring(0, 160) : language === 'fa' ? 'این محصول در حال حاضر موجود نیست.' : 'This product is currently unavailable.'} />
+        <meta name="twitter:image" content={metaImage} />
+        {productJsonLd && (
+          <script type="application/ld+json">
+            {JSON.stringify(productJsonLd)}
+          </script>
+        )}
+      </Helmet>
       <Header />
       
       <main className="pt-20 lg:pt-24">
@@ -126,6 +143,22 @@ export default function ProductDetail() {
                   {language === 'fa'
                     ? 'اطلاعات محصول از استرپی دریافت نشد. در صورت وجود داده نمونه، نمایش داده خواهد شد.'
                     : 'Product data could not be loaded from Strapi. Fallback demo data will be used when available.'}
+                </AlertDescription>
+              </Alert>
+            )}
+
+            {!isLoading && !product && (
+              <Alert variant="destructive">
+                <AlertTitle>{language === 'fa' ? 'محصول یافت نشد' : 'Product not found'}</AlertTitle>
+                <AlertDescription className="flex flex-col gap-3">
+                  <span>
+                    {language === 'fa'
+                      ? 'این محصول در دسترس نیست یا از دسترس خارج شده است.'
+                      : 'The requested product is unavailable or has been removed.'}
+                  </span>
+                  <Link to="/products" className="text-primary font-semibold">
+                    {language === 'fa' ? 'بازگشت به محصولات' : 'Back to products'}
+                  </Link>
                 </AlertDescription>
               </Alert>
             )}
@@ -163,8 +196,8 @@ export default function ProductDetail() {
                   {/* Image Gallery with Zoom */}
                   <div className="space-y-4">
                     <div className="relative aspect-square rounded-2xl overflow-hidden bg-gradient-to-br from-muted to-background shadow-xl border-2 border-teal/20 group">
-                      <img 
-                        src={product.image} 
+                      <img
+                        src={galleryImages[selectedImage] || product.image}
                         alt={localizedName}
                         className="w-full h-full object-contain p-8 transition-all duration-500 group-hover:scale-110 cursor-zoom-in"
                       />
@@ -175,7 +208,7 @@ export default function ProductDetail() {
                     </div>
                     {/* Thumbnail Grid - Premium Style */}
                     <div className="grid grid-cols-4 gap-3">
-                      {[product.image, product.image, product.image, product.image].map((img, idx) => (
+                      {galleryImages.map((img, idx) => (
                         <button
                           key={idx}
                           onClick={() => setSelectedImage(idx)}

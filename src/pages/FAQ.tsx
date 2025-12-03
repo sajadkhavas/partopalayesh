@@ -1,9 +1,11 @@
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator, BreadcrumbPage } from '@/components/ui/breadcrumb';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { SITE_URL } from '@/config';
 
 export default function FAQ() {
   const { language } = useLanguage();
@@ -33,6 +35,29 @@ export default function FAQ() {
 
   return (
     <div className="min-h-screen bg-background" dir={language === 'fa' ? 'rtl' : 'ltr'}>
+      <Helmet>
+        <title>{language === 'fa' ? 'سؤالات متداول تجهیزات آزمایشگاهی' : 'Laboratory Equipment FAQ'}</title>
+        <meta
+          name="description"
+          content={language === 'fa'
+            ? 'پرسش و پاسخ‌های رایج درباره تأمین تجهیزات آزمایشگاهی، نصب، کالیبراسیون و خدمات پشتیبانی.'
+            : 'Common questions about laboratory equipment supply, installation, calibration, and support services.'}
+        />
+        <link rel="canonical" href={`${SITE_URL}/resources/faq`} />
+        <meta property="og:title" content={language === 'fa' ? 'سؤالات متداول پتروپالایش' : 'PetroPalayeshco FAQ'} />
+        <meta property="og:description" content={language === 'fa'
+          ? 'پاسخ به سؤالات مرتبط با تجهیزات آزمایشگاهی و ابزار دقیق.'
+          : 'Answers to questions related to laboratory equipment and instrumentation.'} />
+        <meta property="og:url" content={`${SITE_URL}/resources/faq`} />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content={`${SITE_URL}/analytical-equipment.jpg`} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={language === 'fa' ? 'سؤالات متداول پتروپالایش' : 'PetroPalayeshco FAQ'} />
+        <meta name="twitter:description" content={language === 'fa'
+          ? 'پاسخ به سؤالات مرتبط با تجهیزات آزمایشگاهی و ابزار دقیق.'
+          : 'Answers to questions related to laboratory equipment and instrumentation.'} />
+        <meta name="twitter:image" content={`${SITE_URL}/analytical-equipment.jpg`} />
+      </Helmet>
       <Header />
       
       <main className="pt-20 lg:pt-24">

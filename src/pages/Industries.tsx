@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator, BreadcrumbPage } from '@/components/ui/breadcrumb';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { industries } from '@/data/industries';
+import { SITE_URL } from '@/config';
 
 export default function Industries() {
   const { language } = useLanguage();
@@ -28,6 +29,33 @@ export default function Industries() {
               : 'Laboratory equipment and instrumentation supply for oil & gas, petrochemical, power, water treatment, pharmaceutical and research industries'
           }
         />
+        <link rel="canonical" href={`${SITE_URL}/industries`} />
+        <meta property="og:title" content={language === 'fa' ? 'صنایع تحت پوشش پتروپالایش' : 'Industries served by PetroPalayeshco'} />
+        <meta property="og:description" content={language === 'fa'
+          ? 'پوشش گسترده صنایع نفت، گاز، پتروشیمی و انرژی با تجهیزات آزمایشگاهی و ابزار دقیق.'
+          : 'Extensive coverage of oil, gas, petrochemical, and energy industries with lab equipment and instrumentation.'} />
+        <meta property="og:url" content={`${SITE_URL}/industries`} />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content={`${SITE_URL}/petroleum-equipment.jpg`} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={language === 'fa' ? 'صنایع تحت پوشش پتروپالایش' : 'Industries served by PetroPalayeshco'} />
+        <meta name="twitter:description" content={language === 'fa'
+          ? 'پوشش گسترده صنایع نفت، گاز، پتروشیمی و انرژی با تجهیزات آزمایشگاهی و ابزار دقیق.'
+          : 'Extensive coverage of oil, gas, petrochemical, and energy industries with lab equipment and instrumentation.'} />
+        <meta name="twitter:image" content={`${SITE_URL}/petroleum-equipment.jpg`} />
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            "name": "Industries",
+            "itemListElement": industries.map((industry, index) => ({
+              "@type": "ListItem",
+              "position": index + 1,
+              "name": industry.nameEn,
+              "item": `${SITE_URL}/industries`
+            }))
+          })}
+        </script>
       </Helmet>
 
       <Header />

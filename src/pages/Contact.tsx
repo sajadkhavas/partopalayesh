@@ -76,12 +76,28 @@ export default function Contact() {
     <div className="min-h-screen bg-background" dir={language === 'fa' ? 'rtl' : 'ltr'}>
       <Helmet>
         <title>{language === 'fa' ? 'تماس با ما | پتروپالایش کو' : 'Contact Us | PetroPalayesh Co.'}</title>
-        <meta name="description" content={language === 'fa' 
-          ? 'با تیم پتروپالایش کو تماس بگیرید. مشاوره تخصصی، استعلام قیمت تجهیزات آزمایشگاهی'
-          : 'Contact PetroPalayesh Co. team. Expert consultation, laboratory equipment quotation'} />
+        <meta
+          name="description"
+          content={language === 'fa'
+            ? 'با تیم پتروپالایش کو تماس بگیرید. مشاوره تخصصی، استعلام قیمت تجهیزات آزمایشگاهی'
+            : 'Contact PetroPalayesh Co. team. Expert consultation, laboratory equipment quotation'}
+        />
         <link rel="canonical" href={`${SITE_URL}/contact`} />
         <meta property="og:title" content={language === 'fa' ? 'تماس با ما | پتروپالایش کو' : 'Contact Us | PetroPalayesh Co.'} />
+        <meta property="og:description" content={language === 'fa'
+          ? 'اطلاعات تماس، آدرس و فرم درخواست برای تجهیزات آزمایشگاهی و ابزار دقیق.'
+          : 'Contact details, address, and inquiry form for laboratory equipment and instrumentation.'}
+        />
         <meta property="og:url" content={`${SITE_URL}/contact`} />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content={`${SITE_URL}/precision-instruments.jpg`} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={language === 'fa' ? 'تماس با پتروپالایش' : 'Contact PetroPalayeshco'} />
+        <meta name="twitter:description" content={language === 'fa'
+          ? 'فرم تماس و اطلاعات برای دریافت مشاوره تجهیزات آزمایشگاهی و ابزار دقیق.'
+          : 'Contact form and details to get consultation on laboratory equipment and instrumentation.'}
+        />
+        <meta name="twitter:image" content={`${SITE_URL}/precision-instruments.jpg`} />
       </Helmet>
       <Header />
       
