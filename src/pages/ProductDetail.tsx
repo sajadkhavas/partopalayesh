@@ -48,12 +48,6 @@ export default function ProductDetail() {
       : `${SITE_URL}${product.image}`
     : `${SITE_URL}/analytical-equipment.jpg`;
 
-  const metaImage = product
-    ? product.image.startsWith('http')
-      ? product.image
-      : `${SITE_URL}${product.image}`
-    : `${SITE_URL}/analytical-equipment.jpg`;
-
   const handleAddToRFQ = () => {
     if (!product) return;
     addItem({
